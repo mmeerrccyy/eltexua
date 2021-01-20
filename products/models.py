@@ -35,6 +35,7 @@ class Category(Model):
     def __str__(self):
         return self.name
 
+
 class SubCategory(Model):
     fk = models.ForeignKey(Category, verbose_name="Категорія", on_delete=CASCADE)
     name = models.CharField(verbose_name="Назва підкатегорії", max_length=250)
@@ -43,18 +44,34 @@ class SubCategory(Model):
     def __str__(self):
         return self.name
 
+
 class Brand(Model):
     name = models.CharField(verbose_name="Назва бренду", max_length=15)
 
     def __str__(self):
         return self.name
 
-class Notebook(Model):
-    fk = models.OneToOneRel(SubCategory, on_delete=CASCADE, field_name=1, to=SubCategory.id)
-    #fk = models.ForeignKey(SubCategory, verbose_name="Підкатегорія", on_delete=CASCADE, default=1)
+
+class Product(models.Model):
+    class Meta:
+        abstract = True
+
+    category = models.ForeignKey(SubCategory, verbose_name='Категорія', on_delete=models.CASCADE, null=True)
     fk_brand = models.ForeignKey(Brand, verbose_name="Бренд", on_delete=CASCADE)
     model = models.CharField(verbose_name="Модель", max_length=25)
+    slug = models.SlugField(unique=True, null=True)
     img = models.ImageField(verbose_name="Зображення")
+    description = models.TextField(verbose_name='Опис', null=True)
+    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Ціна', null=True)
+
+    def __str__(self):
+        return self.model
+
+    def get_model_name(self):
+        return self.__class__.__name__.lower()
+
+
+class Notebook(Product):
     display = models.CharField(verbose_name="Діагональ", max_length=5)
     rom_types = (
         ('HDD', 'HDD'),

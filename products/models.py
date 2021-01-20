@@ -3,12 +3,6 @@ from django.db.models import CASCADE, Model
 
 # Create your models here.
 '''
-Brand 
-Комп'ютери (
-ноутбуки, 
-пк, 
-планшети
-)
 Телефони (
 смартфони
 ) 
@@ -52,7 +46,7 @@ class Brand(Model):
         return self.name
 
 
-class Product(models.Model):
+class PC(models.Model):
     class Meta:
         abstract = True
 
@@ -64,6 +58,7 @@ class Product(models.Model):
     description = models.TextField(verbose_name='Опис', null=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Ціна', null=True)
 
+
     def __str__(self):
         return self.model
 
@@ -71,7 +66,8 @@ class Product(models.Model):
         return self.__class__.__name__.lower()
 
 
-class Notebook(Product):
+class Notebook(PC):
+
     display = models.CharField(verbose_name="Діагональ", max_length=5)
     rom_types = (
         ('HDD', 'HDD'),
@@ -87,6 +83,47 @@ class Notebook(Product):
     )
     ram = models.CharField(choices=ram_types, verbose_name="Тип оперативної пам'яті", max_length=10)
     ram_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм оперативної пам'яті, Гб")
+    battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години", null=True)
+    battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh", null=True)
+
+    def __str__(self):
+        return "{} {}".format(self.fk_brand, self.model)
+
+
+class PersonalComputer(PC):
+    rom_types = (
+        ('HDD', 'HDD'),
+        ('SSD', 'SSD'),
+        ('HSD', 'HDD + SSD'),
+    )
+    rom = models.CharField(choices=rom_types, verbose_name="Тип пам'яті", max_length=10)
+    rom_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм пам'яті, Гб")
+    ram_types = (
+        ('DDR2', 'DDR2'),
+        ('DDR3', 'DDR3'),
+        ('DDR4', 'DDR4'),
+    )
+    ram = models.CharField(choices=ram_types, verbose_name="Тип оперативної пам'яті", max_length=10)
+    ram_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм оперативної пам'яті, Гб")
+
+    def __str__(self):
+        return "{} {}".format(self.fk_brand, self.model)
+
+class Tablet(PC):
+    display = models.CharField(verbose_name="Діагональ", max_length=5)
+    rom_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм пам'яті, Гб")
+    ram_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм оперативної пам'яті, Гб")
+    is_front_cam = models.BooleanField(verbose_name="Наявність фронтальної камери")
+    if is_front_cam:
+        front_cam = models.PositiveSmallIntegerField(verbose_name="МП", null=True)
+    is_back_cam = models.BooleanField(verbose_name="Наявність задня камери")
+    if is_back_cam:
+        back_cam = models.PositiveSmallIntegerField(verbose_name="МП", null=True)
+    is_sd = models.BooleanField(verbose_name="Підтримка SD карт")
+    if is_sd:
+        sd = models.PositiveSmallIntegerField(verbose_name="Максимальний обсяг SD карти", null=True)
+    battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години", null=True)
+    battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh", null=True)
 
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)

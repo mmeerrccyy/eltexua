@@ -1,8 +1,37 @@
 from django.contrib import admin
 from .models import *
+from django.forms import ModelChoiceField
+
+
 # Register your models here.
+
+class NotebookAdmin(admin.ModelAdmin):
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'category':
+            return ModelChoiceField(SubCategory.objects.filter(name='Ноутбуки'))
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+
+class PCAdmin(admin.ModelAdmin):
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'category':
+            return ModelChoiceField(SubCategory.objects.filter(name='ПК'))
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+
+class TabletAdmin(admin.ModelAdmin):
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'category':
+            return ModelChoiceField(SubCategory.objects.filter(name='Планшети'))
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 admin.site.register(Category)
 admin.site.register(SubCategory)
 admin.site.register(Brand)
-admin.site.register(Notebook)
+admin.site.register(Notebook, NotebookAdmin)
+admin.site.register(PersonalComputer, PCAdmin)
+admin.site.register(Tablet, TabletAdmin)

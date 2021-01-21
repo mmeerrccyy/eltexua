@@ -9,13 +9,6 @@ from django.urls import reverse
 User = get_user_model()
 
 # Create your models here.
-'''
-ТВ (
-Телевізори, 
-аудіосистема, 
-тюнери проектори
-)
-'''
 
 
 def get_models_for_count(*model_names):
@@ -99,7 +92,7 @@ class Category(Model):
 
 
 class SubCategory(Model):
-    fk = models.ForeignKey(Category, verbose_name="Категорія", on_delete=CASCADE)
+    fk = models.ForeignKey(Category, verbose_name="Категорія", on_delete=CASCADE, null=True, blank=True)
     name = models.CharField(verbose_name="Назва підкатегорії", max_length=250)
     slug = models.CharField(verbose_name="Посилання", max_length=250)
 
@@ -118,13 +111,13 @@ class Product(models.Model):
     class Meta:
         abstract = True
 
-    category = models.ForeignKey(SubCategory, verbose_name='Категорія', on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey(SubCategory, verbose_name='Категорія', on_delete=models.CASCADE)
     fk_brand = models.ForeignKey(Brand, verbose_name="Бренд", on_delete=CASCADE)
     model = models.CharField(verbose_name="Модель", max_length=25)
-    slug = models.SlugField(unique=True, null=True)
+    slug = models.SlugField(unique=True)
     img = models.ImageField(verbose_name="Зображення")
-    description = models.TextField(verbose_name='Опис', null=True)
-    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Ціна', null=True)
+    description = models.TextField(verbose_name='Опис')
+    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Ціна')
 
     def __str__(self):
         return self.model
@@ -149,8 +142,8 @@ class Notebook(Product):
     )
     ram = models.CharField(choices=ram_types, verbose_name="Тип оперативної пам'яті", max_length=10)
     ram_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм оперативної пам'яті, Гб")
-    battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години", null=True)
-    battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh", null=True)
+    battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години")
+    battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh")
 
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)
@@ -181,13 +174,13 @@ class Tablet(Product):
     rom_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм пам'яті, Гб")
     ram_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм оперативної пам'яті, Гб")
     is_front_cam = models.BooleanField(verbose_name="Наявність фронтальної камери")
-    front_cam = models.PositiveSmallIntegerField(verbose_name="МП", null=True)
+    front_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True)
     is_back_cam = models.BooleanField(verbose_name="Наявність задня камери")
-    back_cam = models.PositiveSmallIntegerField(verbose_name="МП", null=True)
+    back_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True)
     is_sd = models.BooleanField(verbose_name="Підтримка SD карт")
-    sd = models.PositiveSmallIntegerField(verbose_name="Максимальний обсяг SD карти", null=True)
-    battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години", null=True)
-    battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh", null=True)
+    sd = models.PositiveSmallIntegerField(verbose_name="Максимальний обсяг SD карти", blank=True)
+    battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години")
+    battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh")
 
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)
@@ -198,20 +191,60 @@ class Smartphone(Product):
     rom_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм пам'яті, Гб")
     ram_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм оперативної пам'яті, Гб")
     is_front_cam = models.BooleanField(verbose_name="Наявність фронтальної камери")
-    front_cam = models.PositiveSmallIntegerField(verbose_name="МП", null=True)
+    front_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True)
     is_back_cam = models.BooleanField(verbose_name="Наявність задня камери")
-    back_cam = models.PositiveSmallIntegerField(verbose_name="МП", null=True)
+    back_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True)
     is_sd = models.BooleanField(verbose_name="Підтримка SD карт")
-    sd = models.PositiveSmallIntegerField(verbose_name="Максимальний обсяг SD карти", null=True)
-    battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години", null=True)
-    battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh", null=True)
+    sd = models.PositiveSmallIntegerField(verbose_name="Максимальний обсяг SD карти", blank=True)
+    battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години")
+    battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh")
 
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)
 
 
 class TVset(Product):
-    pass
+    HD = 'hd'
+    FullHD = 'fullhd'
+    UltraHD = 'ultrahd'
+    FiveKUHD = '5k'
+    EightKUHD = '8k'
+
+    display = models.CharField(verbose_name='Діагональ', max_length=5)
+    ds_type = models.CharField(verbose_name='Формат екрану', max_length=25)
+    resolutions = (
+        (HD, '1280x720'),
+        (FullHD, '1920x1080'),
+        (UltraHD, '3840x2160'),
+        (FiveKUHD, '5120x2880'),
+        (EightKUHD, '7680x4320')
+    )
+    ds_resolution = models.CharField(choices=resolutions, verbose_name='Роздільна здатність екрану', max_length=25)
+
+    def __str__(self):
+        return "{} {}".format(self.fk_brand, self.model)
+
+
+class Audio(Product):
+    HEADSET = 'headset'
+    HEADPHONES = 'headphone'
+
+    BLUETOOTH = 'Bluetooth'
+    NFC = 'NFC'
+
+    audio_types = (
+        (HEADSET, 'Гарнітура'),
+        (HEADPHONES, 'Навушники')
+    )
+    audio_type = models.CharField(choices=audio_types, verbose_name='Тип', max_length=25)
+    connect_types = (
+        (BLUETOOTH, 'Bluetooth'),
+        (NFC, 'NFC'),
+        (NFC + ' ' + ' ' + BLUETOOTH, 'NFC+Bluetooth')
+    )
+    connect_type = models.CharField(choices=connect_types, verbose_name='Тип підключення', max_length=25)
+    min_sound_freq = models.PositiveSmallIntegerField(verbose_name='Мінімальна частота навушника')
+    max_sound_freq = models.PositiveIntegerField(verbose_name='Мінімальна частота навушника')
 
 
 class Order(models.Model):

@@ -246,6 +246,9 @@ class Audio(Product):
     min_sound_freq = models.PositiveSmallIntegerField(verbose_name='Мінімальна частота навушника')
     max_sound_freq = models.PositiveIntegerField(verbose_name='Мінімальна частота навушника')
 
+    def __str__(self):
+        return "{} {}".format(self.fk_brand, self.model)
+
 
 class Order(models.Model):
     STATUS_NEW = 'new'

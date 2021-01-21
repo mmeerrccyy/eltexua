@@ -1,4 +1,8 @@
+/*fonts*/
+
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500&display=swap');
+
+/*basic*/
 
 body {
 	font-family: Raleway ,sans-serif;
@@ -29,17 +33,128 @@ i {
 .nav-menu, .login-button {
 	color: #fff;
 	text-decoration: none;
-	font-size: ;
 	font-size: .9rem;
 	font-weight: 500;
 	padding: 20px;
 }
 
-.nav-menu:hover, .login-button:hover {
+.nav-menu {
+	padding: 10px;
+	border: 1px solid #fff;
+	border-radius: 5px;
+}
+
+.login-button:hover {
 	text-decoration: underline;
 }
 
 .header img {
 	width: 150px;
 	height: 104px;
+}
+
+@media (max-width: 830px) {
+
+	.header {
+		width: 100%;
+		height: 90px;
+		background-color: #2d2f31;
+		text-align: center;
+	}
+
+	.nav-menu, .login-button {
+		color: #fff;
+		text-decoration: none;
+		font-size: .8rem;
+		font-weight: 500;
+		padding: 20px;
+	}
+
+	.header img {
+		width: 100px;
+		height: 84px;
+	}
+
+}
+
+/*under-head*/
+
+.under-head {
+	width: 100%;
+	height: 45px;
+	background-color: #414345;
+}
+
+#search {
+	width: 600px;
+	height: 30px;
+	margin: auto;
+	padding-left: 35px;
+	font-size: .6rem;
+	font-family: Raleway ,sans-serif;
+	position: relative;
+}
+
+#seach::placeholder {
+	font-weight: 500;
+}
+
+#icon-search {
+	color: #414345;
+	position: absolute;
+	font-size: .7rem;
+	z-index: 5;
+}
+
+.icons {
+	color: #fff;
+	font-size: .9rem;
+}
+
+.icons:nth-child(1) {
+	margin-left: 30%;
+}
+
+@media (max-width: 1000px) {
+
+	#search {
+		width: 400px;
+		height: 30px;
+		margin: auto;
+	}
+}
+
+/*footer*/
+
+.footer {
+	margin-top: auto;
+	width: 100%;
+	height: 250px;
+	background-color: #03091a;
+	color: #fff;
+}
+
+.footer img {
+	width: 180px;
+	height: 120px;
+}
+
+.footer .content {
+	margin: 20px;
+}
+
+.footer p {
+	font-size: .7rem;
+	line-height: 30px;
+	letter-spacing: 2px;
+}
+
+.footer p span {
+	font-weight: 700;
+	font-size: 1.3rem;
+	line-height: 60px;
+}
+
+.footer i {
+	padding: 20px;
 }

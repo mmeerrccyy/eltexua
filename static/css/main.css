@@ -122,4 +122,39 @@ i {
 		height: 30px;
 		margin: auto;
 	}
-} 
+}
+
+/*footer*/
+
+.footer {
+	margin-top: auto;
+	width: 100%;
+	height: 250px;
+	background-color: #03091a;
+	color: #fff;
+}
+
+.footer img {
+	width: 180px;
+	height: 120px;
+}
+
+.footer .content {
+	margin: 20px;
+}
+
+.footer p {
+	font-size: .7rem;
+	line-height: 30px;
+	letter-spacing: 2px;
+}
+
+.footer p span {
+	font-weight: 700;
+	font-size: 1.3rem;
+	line-height: 60px;
+}
+
+.footer i {
+	padding: 20px;
+}

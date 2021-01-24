@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+{% extends "products/wrapper.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'product/style.css' %}">
-</head>
-<body>
-    <div>Hello world</div>
-    {% for i in notebooks %}
-        <div>
-            {{ i }}
-        </div>
-    {% endfor %}
-</body>
-</html>
+{% block head %}
+
+{% endblock %}
+{% block content %}
+<div>
+    Categories
+    <ul>
+        <li>Телефони</li>
+        <li>Комп'ютери</li>
+        <li>Телевізори</li>
+        <li>Навушники</li>
+    </ul>
+</div>
+
+{% endblock %}

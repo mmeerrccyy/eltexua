@@ -1,5 +1,18 @@
 {% extends 'products/wrapper.html' %}
-
+{% load specifications %}
 {% block content %}
-{{ product.model }}
+<div class="row">
+  <div class="col-md-3">
+      <img src="{{ product.img.url }}" class="img-fluid">
+  </div>
+  <div class="col-md-8">
+      <h3>{{ product.fk_brand }} {{ product.model }}</h3>
+      <p>Ціна: {{ product.price }} грн</p>
+      <p>Опис: {{ product.description }}</p>
+      <hr>
+      <h4>Характеристики: </h4>
+      {{ product|product_spec }}
+  </div>
+</div>
+
 {% endblock %}

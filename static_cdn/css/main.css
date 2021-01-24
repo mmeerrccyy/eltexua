@@ -26,7 +26,7 @@ i {
 .header {
 	width: 100%;
 	height: 110px;
-	background-color: #2d2f31;
+	background-color: #88c00f;
 	text-align: center;
 }
 
@@ -82,7 +82,7 @@ i {
 .under-head {
 	width: 100%;
 	height: 45px;
-	background-color: #414345;
+	background-color: #74a50c;
 }
 
 #search {
@@ -123,9 +123,56 @@ i {
 		margin: auto;
 	}
 }
+.left_menu{
+	width: 15vw;
+	background-color: white;
+	height: 600px;
+	font-size: 12px;
+}
+.left_menu_block{
+	background-color: snow;
+	border-bottom: 1px solid #ddd;
+}
+.drop {
+    color: black;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+input{
+	margin-top: 10px;
+	padding-left: 25px;
+}
+.dropdown-content {
+    display: none;
+    position: relative;
+	width: 15vw;
+    overflow: auto;
+}
 
-/*footer*/
+.dropdown-content a {
+    color: black;
+    padding-top: 5px;
+    text-decoration: none;
+    display: block;
+	padding-left: 35px;
+}
+.show {display: block;}
 
+.price_block{
+	text-align: center;
+	font-size: 20px;
+}
+.price_block input{
+	padding: 1px;
+	background-color: darkgrey;
+	border: 0px;
+	outline: none;
+}
 .footer {
 	margin-top: auto;
 	width: 100%;

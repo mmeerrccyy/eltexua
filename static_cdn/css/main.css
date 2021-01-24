@@ -123,6 +123,9 @@ i {
 		margin: auto;
 	}
 }
+
+/*aside (left-menu)*/
+
 .left_menu{
 	width: 15vw;
 	background-color: white;
@@ -173,6 +176,40 @@ input{
 	border: 0px;
 	outline: none;
 }
+
+/*blokcs for goods*/
+
+.blocks {
+	width: 250px;
+	height: 250px;
+	background-color: #f2f2f2;
+}
+
+.no-gutters {
+	margin: 20px;
+}
+
+.place {
+	margin-bottom: 20px;
+}
+
+.img-fluid {
+	max-width: 225px;
+	max-height: 150px;
+	display: block;
+	margin: auto;
+	margin-bottom: 15px;
+}
+
+.description {
+	text-align: center;
+	opacity: .8;
+	margin-bottom: 15px;
+	font-size: .8rem
+}
+
+/*footer*/
+
 .footer {
 	margin-top: auto;
 	width: 100%;

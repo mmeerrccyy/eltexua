@@ -1,17 +1,66 @@
-<!DOCTYPE html>
+{% extends 'products/wrapper.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'product/style.css' %}">
-</head>
-<body>
-    <div>Hello world</div>
-    {% for i in notebooks %}
-        <div>
-            {{ i }}
-        </div>
-    {% endfor %}
-</body>
-</html>
+{% block content %}
+	
+	<div class="container">
+		<div class="row no-gutters">
+			<div class="col-sm-3 place">
+				<div class="blocks">
+					<img class="img-fluid" src="{% static 'img/logo.png' %}" alt="photo-info">
+					<h3 class="description">Name</h3>
+					<p class="description">245$</p>
+				</div>
+			</div>
+			<div class="col-sm-3 place">
+				<div class="blocks">
+					<img class="img-fluid" src="{% static 'img/logo.png' %}" alt="photo-info">
+					<h3 class="description">Name</h3>
+					<p class="description">245$</p>
+				</div>
+			</div>
+			<div class="col-sm-3 place">
+				<div class="blocks">
+					<img class="img-fluid" src="{% static 'img/logo.png' %}" alt="photo-info">
+					<h3 class="description">Name</h3>
+					<p class="description">245$</p>
+				</div>
+			</div>
+			<div class="col-sm-3 place">
+				<div class="blocks">
+					<img class="img-fluid" src="{% static 'img/logo.png' %}" alt="photo-info">
+					<h3 class="description">Name</h3>
+					<p class="description">245$</p>
+				</div>
+			</div>
+			<div class="col-sm-3 place">
+				<div class="blocks">
+					<img class="img-fluid" src="{% static 'img/logo.png' %}" alt="photo-info">
+					<h3 class="description">Name</h3>
+					<p class="description">245$</p>
+				</div>
+			</div>
+			<div class="col-sm-3 place">
+				<div class="blocks">
+					<img class="img-fluid" src="{% static 'img/logo.png' %}" alt="photo-info">
+					<h3 class="description">Name</h3>
+					<p class="description">245$</p>
+				</div>
+			</div>
+			<div class="col-sm-3 place">
+				<div class="blocks">
+					<img class="img-fluid" src="{% static 'img/logo.png' %}" alt="photo-info">
+					<h3 class="description">Name</h3>
+					<p class="description">245$</p>
+				</div>
+			</div>
+			<div class="col-sm-3 place">
+				<div class="blocks">
+					<img class="img-fluid" src="{% static 'img/logo.png' %}" alt="photo-info">
+					<h3 class="description">Name</h3>
+					<p class="description">245$</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -12,7 +12,7 @@ from .models import *
 #     return render(request, 'products/index.html', {'notebooks': latest_added})
 
 def index(request):
-    return render(request, 'products/wrapper.html')
+    return render(request, 'products/index.html')
 
 
 class ProductDetailView(DetailView):

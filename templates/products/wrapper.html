@@ -6,9 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<link rel="stylesheet" href="{% static 'css/main.css' %}">
-   <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
-   <link rel="stylesheet" href="{% static 'bootstrap/bootstrap-grid.min.css' %}">
-   <script type="text/javascript" src={% static "js/main.js" %}></script>
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap-grid.min.css' %}">
+    <script type="text/javascript" src={% static "js/main.js" %}></script>
 </head>
 <body>
 	<header class="header">
@@ -79,40 +79,42 @@
             </div>
         </div>
     </aside>
-	<footer class="footer">	
-		<div class="container-fluid">	
-			<div class="row align-items-center">	
-				<div class="col-sm-4">	
-					<div class="content">	
-						<img src="{% static 'img/logo.png' %}" alt="logotype">	
-						<p>Copyright by eltex</p>	
-					</div>	
-				</div>	
-				<div class="col-sm-5">	
-					<div class="content">	
-						<h4>Контакти</h4>	
-						<p>	
-							Інфомаційна служба	
-							<br>	
-							<span>0800-202-193</span>	
-							<br>	
-							Email: info@gmail.com	
-							<br>	
-							Графік роботи	
-							Пн-Нд 08:30-22:00	
-						</p>	
-					</div>	
-				</div>	
-				<div class="col-sm">	
-					<div class="content">	
-						<h4>Соціальні мережі</h4>	
-						<i class="fab fa-telegram"></i>	
-						<i class="fab fa-instagram"></i>	
-						<i class="fab fa-facebook"></i>	
-					</div>	
-				</div>	
-			</div>	
-		</div>	
-	</footer>	
+    {% block content %}
+    {% endblock %}
+	<footer class="footer">
+		<div class="container-fluid">
+			<div class="row align-items-center">
+				<div class="col-sm-4">
+					<div class="content">
+						<img src="{% static 'img/logo.png' %}" alt="logotype">
+						<p>Copyright by eltex</p>
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<div class="content">
+						<h4>Контакти</h4>
+						<p>
+							Інфомаційна служба
+							<br>
+							<span>0800-202-193</span>
+							<br>
+							Email: info@gmail.com
+							<br>
+							Графік роботи
+							Пн-Нд 08:30-22:00
+						</p>
+					</div>
+				</div>
+				<div class="col-sm">
+					<div class="content">
+						<h4>Соціальні мережі</h4>
+						<i class="fab fa-telegram"></i>
+						<i class="fab fa-instagram"></i>
+						<i class="fab fa-facebook"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

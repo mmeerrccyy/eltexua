@@ -260,7 +260,7 @@ class Audio(Product):
     )
     connect_type = models.CharField(choices=connect_types, verbose_name='Тип підключення', max_length=25)
     min_sound_freq = models.PositiveSmallIntegerField(verbose_name='Мінімальна частота навушника')
-    max_sound_freq = models.PositiveIntegerField(verbose_name='Мінімальна частота навушника')
+    max_sound_freq = models.PositiveIntegerField(verbose_name='Максимальна частота навушника')
 
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)

@@ -12,7 +12,7 @@ from .models import *
 #     return render(request, 'products/index.html', {'notebooks': latest_added})
 
 def index(request):
-    return render(request, 'products/wrapper.html')
+    return render(request, 'products/index.html')
 
 
 class ProductDetailView(DetailView):
@@ -34,3 +34,4 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
     template_name = 'products/product_detail.html'
     slug_url_kwarg = 'slug'
+

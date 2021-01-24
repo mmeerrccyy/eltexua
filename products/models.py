@@ -113,10 +113,10 @@ class Product(models.Model):
 
     category = models.ForeignKey(SubCategory, verbose_name='Категорія', on_delete=models.CASCADE)
     fk_brand = models.ForeignKey(Brand, verbose_name="Бренд", on_delete=CASCADE)
-    model = models.CharField(verbose_name="Модель", max_length=25)
+    model = models.CharField(verbose_name="Модель", max_length=250)
     slug = models.SlugField(unique=True)
     img = models.ImageField(verbose_name="Зображення")
-    description = models.TextField(verbose_name='Опис')
+    description = models.TextField(verbose_name='Опис', blank=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Ціна')
 
     def __str__(self):
@@ -148,6 +148,8 @@ class Notebook(Product):
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)
 
+    def get_absolute_url(self):
+        return get_product_url(self, 'product_detail')
 
 class PersonalComputer(Product):
     rom_types = (
@@ -168,6 +170,9 @@ class PersonalComputer(Product):
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)
 
+    def get_absolute_url(self):
+        return get_product_url(self, 'product_detail')
+
 
 class Tablet(Product):
     display = models.CharField(verbose_name="Діагональ", max_length=5)
@@ -185,6 +190,9 @@ class Tablet(Product):
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)
 
+    def get_absolute_url(self):
+        return get_product_url(self, 'product_detail')
+
 
 class Smartphone(Product):
     display = models.CharField(verbose_name="Діагональ", max_length=5)
@@ -194,13 +202,16 @@ class Smartphone(Product):
     front_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True)
     is_back_cam = models.BooleanField(verbose_name="Наявність задня камери")
     back_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True)
-    is_sd = models.BooleanField(verbose_name="Підтримка SD карт")
-    sd = models.PositiveSmallIntegerField(verbose_name="Максимальний обсяг SD карти", blank=True)
+    is_sd = models.BooleanField(verbose_name="Підтримка SD карт", default=False)
+    sd = models.PositiveSmallIntegerField(verbose_name="Максимальний обсяг SD карти", blank=True, null=True)
     battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години")
     battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh")
 
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)
+
+    def get_absolute_url(self):
+        return get_product_url(self, 'product_detail')
 
 
 class TVset(Product):
@@ -224,11 +235,15 @@ class TVset(Product):
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)
 
+    def get_absolute_url(self):
+        return get_product_url(self, 'product_detail')
+
 
 class Audio(Product):
     HEADSET = 'headset'
     HEADPHONES = 'headphone'
 
+    WIRED = 'wired'
     BLUETOOTH = 'Bluetooth'
     NFC = 'NFC'
 
@@ -238,6 +253,7 @@ class Audio(Product):
     )
     audio_type = models.CharField(choices=audio_types, verbose_name='Тип', max_length=25)
     connect_types = (
+        (WIRED, 'Провідні'),
         (BLUETOOTH, 'Bluetooth'),
         (NFC, 'NFC'),
         (NFC + ' ' + ' ' + BLUETOOTH, 'NFC+Bluetooth')
@@ -248,6 +264,9 @@ class Audio(Product):
 
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)
+
+    def get_absolute_url(self):
+        return get_product_url(self, 'product_detail')
 
 
 class Order(models.Model):

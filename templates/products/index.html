@@ -1,7 +1,7 @@
 {% extends "products/wrapper.html" %}
 {% load static %}
 {% block head %}
-
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 {% block content %}
     <div class="container-fluid">
@@ -17,5 +17,15 @@
             {% endfor %}
         </div>
     </div>
-
+    <div class="partners">
+    	<div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-sm"><img class="partner-logo" src="{% static 'img/Samsung.png' %}" alt="partner-logo"></div>
+            <div class="col-sm"><img class="partner-logo" src="{% static 'img/Apple.png' %}" alt="partner-logo"></div>
+            <div class="col-sm"><img class="partner-logo" src="{% static 'img/Huawei.png' %}" alt="partner-logo"></div>
+            <div class="col-sm"><img class="partner-logo" src="{% static 'img/bosch.png' %}" alt="partner-logo"></div>
+            <div class="col-sm"><img class="partner-logo" src="{% static 'img/Philips.png' %}" alt="partner-logo"></div>
+        </div>
+    	</div>
+    </div>
 {% endblock %}

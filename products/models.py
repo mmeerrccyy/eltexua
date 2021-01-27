@@ -39,9 +39,12 @@ class CategoryManager(models.Manager):
         models = get_models_for_count(
             'smartphone', 'notebook', 'audio', 'tvset', 'tablet', 'personalcomputer'
         )
-        qs = list(self.get_queryset().annotate(*models).values())
-        return [dict(name = c['name'], slug = ['slug'], count = c[self.CATEGORY_NAME_COUNT_NAME[c['name']]])
-                for c in qs]
+        qs = list(self.get_queryset().annotate(*models))
+        data = [
+            dict(name = c.name, url=c.get_absolute_url(), count=getattr(c, self.CATEGORY_NAME_COUNT_NAME[c.name]))
+            for c in qs
+        ]
+        return data
 
 
 class CartProduct(models.Model):
@@ -115,6 +118,8 @@ class Category(Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('category_detail', kwargs={'slug': self.slug})
 
 class Brand(Model):
     name = models.CharField(verbose_name="Назва бренду", max_length=15)

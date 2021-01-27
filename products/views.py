@@ -38,3 +38,10 @@ class ProductDetailView(DetailView):
     template_name = 'products/product_detail.html'
     slug_url_kwarg = 'slug'
 
+class CategoryDetailView(DetailView):
+
+    model = Category
+    queryset = Category.objects.all()
+    context_name = 'category'
+    template_name = 'products/category_detail.html'
+    slug_url_kwarg = 'slug'

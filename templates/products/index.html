@@ -8,7 +8,7 @@
     Categories
     <ul>
         {% for category in categories %}
-            <li>{{ category.name }} ({{ category.count }})</li>
+            <li><a href="{{ category.url }}">{{ category.name }} ({{ category.count }})</a></li>
         {% endfor %}
     </ul>
 </div>

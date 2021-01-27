@@ -7,10 +7,9 @@
 <div>
     Categories
     <ul>
-        <li>Телефони</li>
-        <li>Комп'ютери</li>
-        <li>Телевізори</li>
-        <li>Навушники</li>
+        {% for category in categories %}
+            <li>{{ category.name }} ({{ category.count }})</li>
+        {% endfor %}
     </ul>
 </div>
 

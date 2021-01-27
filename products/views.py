@@ -11,8 +11,11 @@ from .models import *
 #     latest_added = Notebook.objects.all()
 #     return render(request, 'products/index.html', {'notebooks': latest_added})
 
+
 def index(request):
-    return render(request, 'products/index.html')
+
+    categories = Category.objects.get_categories_for_left_sidebar()
+    return render(request, 'products/index.html', {'categories': categories})
 
 
 class ProductDetailView(DetailView):

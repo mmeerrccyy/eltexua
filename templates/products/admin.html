@@ -1,0 +1,48 @@
+{% extends 'admin/change_form.html' %}
+{% load static %}
+
+{% block admin_change_form_document_ready %}
+    {{ block.super }}
+    <script>
+        (function($) {
+            $('#id_is_sd').on('click', function(){
+                if($('#id_is_sd').prop('checked') == true){
+                    $('#id_sd').prop('readonly', false)
+                    $('#id_sd').val('')
+                    $('#id_sd').css('background', 'white')
+                }else{
+                    $('#id_sd').prop('readonly', true)
+                    $('#id_sd').val('')
+                    $('#id_sd').css('background', 'lightgray')
+                }
+            })
+})(django.jQuery);
+        (function($) {
+            $('#id_is_front_cam').on('click', function(){
+                if($('#id_is_front_cam').prop('checked') == true){
+                    $('#id_front_cam').prop('readonly', false)
+                    $('#id_front_cam').val('')
+                    $('#id_front_cam').css('background', 'white')
+                }else{
+                    $('#id_front_cam').prop('readonly', true)
+                    $('#id_front_cam').val('')
+                    $('#id_front_cam').css('background', 'lightgray')
+                }
+            })
+})(django.jQuery);
+        (function($) {
+            $('#id_is_back_cam').on('click', function(){
+                if($('#id_is_back_cam').prop('checked') == true){
+                    $('#id_back_cam').prop('readonly', false)
+                    $('#id_back_cam').val('')
+                    $('#id_back_cam').css('background', 'white')
+                }else{
+                    $('#id_back_cam').prop('readonly', true)
+                    $('#id_back_cam').val('')
+                    $('#id_back_cam').css('background', 'lightgray')
+                }
+            })
+})(django.jQuery);
+    </script>
+
+{% endblock %}

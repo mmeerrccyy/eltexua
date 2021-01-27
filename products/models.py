@@ -8,6 +8,7 @@ from django.urls import reverse
 
 User = get_user_model()
 
+
 # Create your models here.
 
 
@@ -20,6 +21,29 @@ def get_product_url(obj, viewname):
     return reverse(viewname, kwargs={'ct_model': ct_model, 'slug': obj.slug})
 
 
+class CategoryManager(models.Manager):
+
+    CATEGORY_NAME_COUNT_NAME = {
+        'Ноутбуки': 'notebook__count',
+        'Смартфони': 'smartphone__count',
+        'Навушники': 'audio__count',
+        'Телевізори': 'tvset__count',
+        'Планшети': 'tablet__count',
+        'Комп\'ютери': 'personalcomputer__count',
+    }
+
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def get_categories_for_left_sidebar(self):
+        models = get_models_for_count(
+            'smartphone', 'notebook', 'audio', 'tvset', 'tablet', 'personalcomputer'
+        )
+        qs = list(self.get_queryset().annotate(*models).values())
+        return [dict(name = c['name'], slug = ['slug'], count = c[self.CATEGORY_NAME_COUNT_NAME[c['name']]])
+                for c in qs]
+
+
 class CartProduct(models.Model):
     user = models.ForeignKey('Customer', verbose_name='Покупець', on_delete=models.CASCADE)
     cart = models.ForeignKey('Cart', verbose_name='Корзина', on_delete=models.CASCADE, related_name='related_products')
@@ -30,7 +54,7 @@ class CartProduct(models.Model):
     final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Загальна ціна')
 
     def __str__(self):
-        return "Продукт: {} (для корзини)".format(self.content_object.title)
+        return "Продукт: {} (для корзини)".format(self.content_object.model)
 
     def save(self, *args, **kwargs):
         self.final_price = self.qty * self.content_object.price
@@ -86,15 +110,7 @@ class LatestProducts:
 class Category(Model):
     name = models.CharField(verbose_name="Назва категорії", max_length=250)
     slug = models.CharField(verbose_name="Посилання", max_length=250)
-
-    def __str__(self):
-        return self.name
-
-
-class SubCategory(Model):
-    fk = models.ForeignKey(Category, verbose_name="Категорія", on_delete=CASCADE, null=True, blank=True)
-    name = models.CharField(verbose_name="Назва підкатегорії", max_length=250)
-    slug = models.CharField(verbose_name="Посилання", max_length=250)
+    objects = CategoryManager()
 
     def __str__(self):
         return self.name
@@ -111,7 +127,7 @@ class Product(models.Model):
     class Meta:
         abstract = True
 
-    category = models.ForeignKey(SubCategory, verbose_name='Категорія', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, verbose_name='Категорія', on_delete=models.CASCADE)
     fk_brand = models.ForeignKey(Brand, verbose_name="Бренд", on_delete=CASCADE)
     model = models.CharField(verbose_name="Модель", max_length=250)
     slug = models.SlugField(unique=True)
@@ -151,6 +167,7 @@ class Notebook(Product):
     def get_absolute_url(self):
         return get_product_url(self, 'product_detail')
 
+
 class PersonalComputer(Product):
     rom_types = (
         ('HDD', 'HDD'),
@@ -179,11 +196,11 @@ class Tablet(Product):
     rom_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм пам'яті, Гб")
     ram_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм оперативної пам'яті, Гб")
     is_front_cam = models.BooleanField(verbose_name="Наявність фронтальної камери")
-    front_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True)
+    front_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True, null=True)
     is_back_cam = models.BooleanField(verbose_name="Наявність задня камери")
-    back_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True)
+    back_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True, null=True)
     is_sd = models.BooleanField(verbose_name="Підтримка SD карт")
-    sd = models.PositiveSmallIntegerField(verbose_name="Максимальний обсяг SD карти", blank=True)
+    sd = models.PositiveSmallIntegerField(verbose_name="Максимальний обсяг SD карти", blank=True, null=True)
     battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години")
     battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh")
 
@@ -199,9 +216,9 @@ class Smartphone(Product):
     rom_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм пам'яті, Гб")
     ram_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм оперативної пам'яті, Гб")
     is_front_cam = models.BooleanField(verbose_name="Наявність фронтальної камери")
-    front_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True)
+    front_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True, null=True)
     is_back_cam = models.BooleanField(verbose_name="Наявність задня камери")
-    back_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True)
+    back_cam = models.PositiveSmallIntegerField(verbose_name="МП", blank=True, null=True)
     is_sd = models.BooleanField(verbose_name="Підтримка SD карт", default=False)
     sd = models.PositiveSmallIntegerField(verbose_name="Максимальний обсяг SD карти", blank=True, null=True)
     battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години")
@@ -212,6 +229,13 @@ class Smartphone(Product):
 
     def get_absolute_url(self):
         return get_product_url(self, 'product_detail')
+
+    # @property
+    # def is_sd(self):
+    #     if self.is_sd:
+    #         return 'Так'
+    #     else:
+    #         return 'Ні'
 
 
 class TVset(Product):

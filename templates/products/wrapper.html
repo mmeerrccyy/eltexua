@@ -43,6 +43,14 @@
 			</div>
 		</div>
 	</div>
+    <div>
+        <div>
+          {% for category in categories %}
+          <a href="{{ category.url }}">{{ category.name }} ({{ category.count }})</a>
+          {% endfor %}
+        </div>
+    </div>
+
 {#    <aside class="left_menu">#}
 {#        <div class="left_menu_block">#}
 {#            <div class="dropdown">#}

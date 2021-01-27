@@ -80,10 +80,10 @@ class Customer(models.Model):
     user = models.ForeignKey(User, verbose_name='Користувач', on_delete=models.CASCADE)
     phone = models.CharField(max_length=20, verbose_name='Номер телефону', null=True, blank=True)
     address = models.CharField(max_length=255, verbose_name='Адреса', null=True, blank=True)
-    orders = models.ManyToManyField('Order', verbose_name='Замовлення покупця', related_name='related_order')
+    orders = models.ManyToManyField('Order', verbose_name='Замовлення покупця', related_name='related_order', null=True, blank=True)
 
     def __str__(self):
-        return "Покупець: {} {}".format(self.user.first_name, self.user.last_name)
+        return "Покупець: {} {}".format(self.user, self.user.first_name, self.user.last_name)
 
 
 class LatestProductsManager:

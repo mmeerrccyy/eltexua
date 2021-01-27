@@ -5,12 +5,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	{% block head %}
-	{% endblock %}
-	<link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'fontawesome_free/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome_free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 	<script type="text/javascript" src={% static "js/main.js" %}></script>
+    {% block head %}
+	{% endblock %}
 </head>
 <body>
 	<header class="header">
@@ -20,7 +20,7 @@
 					<a class="nav-menu" href="#"><i class="fas fa-bars"></i>Каталог товарів</a>
 				</div>
 				<div class="col-sm">
-					<img src="{% static 'img/logo.png' %}" alt="logotype">
+					<a href="{% url 'Index' %}"><img src="{% static 'img/logo.png' %}" alt="logotype"></a>
 				</div>
 				<div class="col-sm">
 					<a class="login-button" href="#">Увійти<i class="fas fa-user"></i></a>
@@ -38,7 +38,7 @@
 				</div>
 				<div class="col-sm">
 					<a class="icons" href="#"><i class="far fa-heart"></i></a>
-					<a class="icons" href="#"><i class="fas fa-shopping-cart"></i></a>
+					<a class="icons" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-danger">0</span></a>
 				</div>
 			</div>
 		</div>
@@ -106,9 +106,9 @@
 						<p>
 							Інфомаційна служба
 							<br>
-							<span>0800-202-193</span>
+							<span><a href="tel:0800-202-193">0800-202-193</a></span>
 							<br>
-							Email: info@gmail.com
+							Email: <a href="mailto:info@gmail.com">info@gmail.com</a>
 							<br>
 							Графік роботи
 							Пн-Нд 08:30-22:00

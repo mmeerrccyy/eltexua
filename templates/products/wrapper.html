@@ -5,12 +5,17 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+
+	<!-- Links -->
+
 	<link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'fontawesome_free/css/all.min.css' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap-grid.min.css' %}">
-    <script type="text/javascript" src={% static "js/main.js" %}></script>
+   <link rel="stylesheet" href="{% static 'fontawesome_free/css/all.min.css' %}">
+   <link rel="stylesheet" href="{% static 'bootstrap/bootstrap-grid.min.css' %}">
 </head>
 <body>
+
+	<!-- header -->
+
 	<header class="header">
 		<div class="container-fluid">
 			<div class="row align-items-center">
@@ -41,10 +46,13 @@
 			</div>
 		</div>
 	</div>
-    <!-- <aside class="left_menu">
+
+	<!-- left-side-menu -->
+
+    <aside class="left_menu">
         <div class="left_menu_block">
             <div class="dropdown">
-                <h3 onclick="button()" class="drop">Виробник<i class="fas fa-sort-down"></i></h3>
+                <h3 onclick="button()" class="drop">Виробник<i class="fas fa-sort-down left-menu-icon"></i></h3>
                 <div id="myDropdown" class="dropdown-content">
                     <input type="checkbox" class="checkbox"><label for="">LOREM</label><br>
                     <input type="checkbox"><label for="">LOREM</label><br>
@@ -57,9 +65,9 @@
         </div>
             <div class="left_menu_block">
             <div class="dropdown">
-                    <h3 onclick="button2()" class="drop">Продавець<i class="fas fa-sort-down"></i></h3>
+                    <h3 onclick="button2()" class="drop">Продавець<i class="fas fa-sort-down left-menu-icon"></i></h3>
                     <div id="myDropdown2" class="dropdown-content">
-                        <input type="checkbox" class="checkbox"><label for="">LOREM</label><br>
+                        <input type="checkbox" name="op-1" class="checkbox"><label for="op-1">LOREM</label><br>
                         <input type="checkbox"><label for="">LOREM</label><br>
                         <input type="checkbox"><label for="">LOREM</label><br>
                         <input type="checkbox"><label for="">LOREM</label><br>
@@ -70,7 +78,7 @@
         </div>
         <div class="left_menu_block">
             <div class="dropdown">
-                    <h3 onclick="button3()" class="drop">Ціна<i class="fas fa-sort-down"></i></h3>
+                    <h3 onclick="button3()" class="drop">Ціна<i class="fas fa-sort-down left-menu-icon"></i></h3>
                     <div id="myDropdown3" class="dropdown-content">
                         <div class="price_block">
                             <input type="text" size="5">-<input type="text" size="5">
@@ -78,9 +86,30 @@
                     </div>
             </div>
         </div>
-    </aside> -->
+    </aside>
+
+    <!-- content-blocks -->
+
     {% block content %}
+
     {% endblock %}
+
+    <!-- partners -->
+
+    <div class="partners">
+    	<div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-sm"><img class="partner-logo" src="{% static 'img/Samsung.png' %}" alt="partner-logo"></div>
+            <div class="col-sm"><img class="partner-logo" src="{% static 'img/Apple.png' %}" alt="partner-logo"></div>
+            <div class="col-sm"><img class="partner-logo" src="{% static 'img/Huawei.png' %}" alt="partner-logo"></div>
+            <div class="col-sm"><img class="partner-logo" src="{% static 'img/bosch.png' %}" alt="partner-logo"></div>
+            <div class="col-sm"><img class="partner-logo" src="{% static 'img/Philips.png' %}" alt="partner-logo"></div>
+        </div>
+    	</div>
+    </div>
+
+    <!-- footer -->
+
 	<footer class="footer">
 		<div class="container-fluid">
 			<div class="row align-items-center">
@@ -116,5 +145,8 @@
 			</div>
 		</div>
 	</footer>
+
+	<!-- JS -->
+	<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

@@ -1,6 +1,51 @@
 {% extends 'products/wrapper.html' %}
 {% block content %}
-
-    {{ category.name }}
-
+{#<aside class="left_menu">#}
+{#        <div class="left_menu_block">#}
+{#            <div class="dropdown">#}
+{#                <h3 onclick="button()" class="drop">Виробник<i class="fas fa-sort-down"></i></h3>#}
+{#                <div id="myDropdown" class="dropdown-content">#}
+{#                    {% for product in category_products %}#}
+{#                        <input type="checkbox"><label for="">{{ product.fk_brand }}</label><br>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="left_menu_block">#}
+{#            <div class="dropdown">#}
+{#                    <h3 onclick="button2()" class="drop">Продавець<i class="fas fa-sort-down"></i></h3>#}
+{#                    <div id="myDropdown2" class="dropdown-content">#}
+{#                        <input type="checkbox" class="checkbox"><label for="">LOREM</label><br>#}
+{#                        <input type="checkbox"><label for="">LOREM</label><br>#}
+{#                        <input type="checkbox"><label for="">LOREM</label><br>#}
+{#                        <input type="checkbox"><label for="">LOREM</label><br>#}
+{#                        <input type="checkbox"><label for="">LOREM</label><br>#}
+{#                        <input type="checkbox"><label for="">LOREM</label><br>#}
+{#                    </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="left_menu_block">#}
+{#            <div class="dropdown">#}
+{#                    <h3 onclick="button3()" class="drop">Ціна<i class="fas fa-sort-down"></i></h3>#}
+{#                    <div id="myDropdown3" class="dropdown-content">#}
+{#                        <div class="price_block">#}
+{#                            <input type="text" size="5">-<input type="text" size="5">#}
+{#                        </div>#}
+{#                    </div>#}
+{#            </div>#}
+{#        </div>#}
+</aside>
+ <div class="container-fluid">
+        <div class="row">
+            {% for product in category_products %}
+                <div class="col-sm-3 place">
+                    <div class="blocks">
+                      <img class="img-fluid" src="{{ product.img.url }}" alt="photo-info">
+                      <a href="{{ product.get_absolute_url }}"><h3 class="description">{{ product.fk_brand }} {{ product.model }}</h3></a>
+                      <p class="description">{{ product.price }} грн</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+ </div>
 {% endblock %}

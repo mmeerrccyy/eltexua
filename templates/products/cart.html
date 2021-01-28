@@ -1,6 +1,16 @@
 {% extends 'products/wrapper.html' %}
 {% block content %}
-    <h3 class="text-center mt-5 mb-5">Ваша корзина {% if cart.product.count %} пуста :с {% endif %}</h3>
+    <h3 class="text-center mt-5 mb-5">Ваша корзина {% if not cart.products.count %} пуста :с {% endif %}</h3>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close"  data-dismiss="alert" aria-label="Close"></button
+              </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% if cart.products.count %}
     <table class="table">
       <thead>
         <tr>
@@ -9,6 +19,7 @@
           <th scope="col">Ціна</th>
           <th scope="col">Кількість</th>
           <th scope="col">Загалом</th>
+          <th scope="col">Дії</th>
         </tr>
       </thead>
       <tbody>
@@ -17,10 +28,25 @@
           <th scope="row">{{ item.content_object.brand }} {{ item.content_object.model }}</th>
           <td class="w-25"><img src="{{ item.content_object.img.url }}" class="img-fluid"></td>
           <td>{{ item.content_object.price }} грн</td>
-          <td>{{ item.qty }}</td>
+          <td>
+              <form action="{% url 'change_qty' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}" method="post">
+                  {% csrf_token %}
+                  <input type="number" class="form-control" name="qty" min="1" value="{{ item.qty }}">
+                  <br>
+                  <input type="submit" class="btn btn-primary" value="Змінити кількість">
+              </form>
+          </td>
           <td>{{ item.final_price }}</td>
+          <td><a href="{% url 'delete_from_cart' ct_model=item.content_object.get_model_name slug=item.content_object.slug %}"><button class="btn btn-danger">Видалити з корзини</button></a></td>
         </tr>
       {% endfor %}
+        <tr>
+            <td colspan="2"></td>
+            <td>Загалом:</td>
+            <td>{{ cart.total_products }}</td>
+            <td>{{ cart.final_price }} грн</td>
+        </tr>
       </tbody>
     </table>
+{% endif %}
 {% endblock %}

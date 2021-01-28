@@ -39,7 +39,7 @@
 				</div>
 				<div class="col-sm">
 					<a class="icons" href="#"><i class="far fa-heart"></i></a>
-					<a class="icons" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-danger">0</span></a>
+					<a class="icons" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-danger">{{ cart.products.count }}</span></a>
 				</div>
 			</div>
 		</div>

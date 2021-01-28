@@ -8,6 +8,8 @@
   <div class="col-md-8">
       <h3>{{ product.fk_brand }} {{ product.model }}</h3>
       <p>Ціна: {{ product.price }} грн</p>
+      <a href="{% url 'add_to_cart' ct_model=ct_model slug=product.slug %}"><button class="btn btn-danger">Купити</button></a>
+      <hr>
       <p>Опис: {{ product.description }}</p>
       <hr>
       <h4>Характеристики: </h4>

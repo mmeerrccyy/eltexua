@@ -1,5 +1,5 @@
 from django.utils import timezone
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import CASCADE, Model
@@ -80,7 +80,7 @@ class Customer(models.Model):
     user = models.ForeignKey(User, verbose_name='Користувач', on_delete=models.CASCADE)
     phone = models.CharField(max_length=20, verbose_name='Номер телефону', null=True, blank=True)
     address = models.CharField(max_length=255, verbose_name='Адреса', null=True, blank=True)
-    orders = models.ManyToManyField('Order', verbose_name='Замовлення покупця', related_name='related_order', null=True, blank=True)
+    orders = models.ManyToManyField('Order', verbose_name='Замовлення покупця', related_name='related_order', blank=True)
 
     def __str__(self):
         return "Покупець: {} {}".format(self.user, self.user.first_name, self.user.last_name)
@@ -94,7 +94,7 @@ class LatestProductsManager:
         products = []
         ct_models = ContentType.objects.filter(model__in=args)
         for ct_model in ct_models:
-            model_products = ct_model.model_class()._base_manager.all().order_by('-id')[:5]
+            model_products = ct_model.model_class()._base_manager.all().order_by('-id')[:4]
             products.extend(model_products)
         if with_respect_to:
             ct_model = ContentType.objects.filter(model=with_respect_to)

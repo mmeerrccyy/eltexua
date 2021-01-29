@@ -26,7 +26,6 @@ class CategoryDetailMixin(SingleObjectMixin):
         return context
 
 
-
 class CartMixin(View):
 
     def dispatch(self, request, *args, **kwargs):

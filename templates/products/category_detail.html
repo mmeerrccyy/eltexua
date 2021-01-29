@@ -1,4 +1,8 @@
 {% extends 'products/wrapper.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
 {% block content %}
 {#<aside class="left_menu">#}
 {#        <div class="left_menu_block">#}
@@ -35,6 +39,12 @@
 {#            </div>#}
 {#        </div>#}
 {#</aside>#}
+    <nav aria-label="breadcrumb" class="mt-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'Index' %}">Головна сторінка</a></li>
+            <li class="breadcrumb-item active">{{ category.name }}</li>
+        </ol>
+    </nav>
  <div class="container-fluid">
         <div class="row">
             {% for product in category_products %}

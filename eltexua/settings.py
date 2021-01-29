@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products.apps.ProductsConfig',
     'fontawesome-free',
-
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +131,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static_cdn'),
 )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

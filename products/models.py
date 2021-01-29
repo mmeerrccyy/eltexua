@@ -1,5 +1,5 @@
 from django.utils import timezone
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import CASCADE, Model
@@ -22,7 +22,6 @@ def get_product_url(obj, viewname):
 
 
 class CategoryManager(models.Manager):
-
     CATEGORY_NAME_COUNT_NAME = {
         'Ноутбуки': 'notebook__count',
         'Смартфони': 'smartphone__count',
@@ -41,7 +40,7 @@ class CategoryManager(models.Manager):
         )
         qs = list(self.get_queryset().annotate(*models))
         data = [
-            dict(name = c.name, url=c.get_absolute_url(), count=getattr(c, self.CATEGORY_NAME_COUNT_NAME[c.name]))
+            dict(name=c.name, url=c.get_absolute_url(), count=getattr(c, self.CATEGORY_NAME_COUNT_NAME[c.name]))
             for c in qs
         ]
         return data
@@ -74,23 +73,14 @@ class Cart(models.Model):
 
     def __str__(self):
         return str(self.id)
-
-    def save(self, *args, **kwargs):
-        cart_data = self.products.aggregate(models.Sum('final_price'), models.Count('id'))
-        if cart_data.get('final_price__sum'):
-            self.final_price = cart_data['final_price__sum']
-        else:
-            self.final_price = 0
-        self.total_products = cart_data['id__count']
-        super().save(*args, **kwargs)
-
-
+        
 
 class Customer(models.Model):
     user = models.ForeignKey(User, verbose_name='Користувач', on_delete=models.CASCADE)
     phone = models.CharField(max_length=20, verbose_name='Номер телефону', null=True, blank=True)
     address = models.CharField(max_length=255, verbose_name='Адреса', null=True, blank=True)
-    orders = models.ManyToManyField('Order', verbose_name='Замовлення покупця', related_name='related_order', blank=True)
+    orders = models.ManyToManyField('Order', verbose_name='Замовлення покупця', related_name='related_order',
+                                    blank=True)
 
     def __str__(self):
         return "Покупець: {} {}".format(self.user, self.user.first_name, self.user.last_name)
@@ -130,6 +120,7 @@ class Category(Model):
 
     def get_absolute_url(self):
         return reverse('category_detail', kwargs={'slug': self.slug})
+
 
 class Brand(Model):
     name = models.CharField(verbose_name="Назва бренду", max_length=15)
@@ -333,7 +324,7 @@ class Order(models.Model):
     first_name = models.CharField(max_length=255, verbose_name="Ім'я")
     last_name = models.CharField(max_length=255, verbose_name='Прізвище')
     phone = models.CharField(max_length=20, verbose_name='Телефон')
-    cart = models.ForeignKey(Cart, verbose_name='Корзина', on_delete=models.CASCADE, null=True, blank=True)
+    cart = models.ForeignKey(Cart, verbose_name='Корзина', on_delete=CASCADE, null=True, blank=True)
     address = models.CharField(max_length=1024, verbose_name='Адреса', null=True, blank=True)
     status = models.CharField(
         max_length=100,
@@ -347,9 +338,9 @@ class Order(models.Model):
         choices=BUYING_TYPE_CHOICES,
         default=BUYING_TYPE_SELF
     )
-    comment = models.TextField(verbose_name='Коментарій для замовлення', null=True, blank=True)
+    comment = models.TextField(verbose_name='Коментарій до замовлення', null=True, blank=True)
     created_at = models.DateTimeField(auto_now=True, verbose_name='Дата создания заказа')
-    order_date = models.DateField(verbose_name='Дата получения заказа', default=timezone.now)
+    order_date = models.DateField(verbose_name='Дата отримання замовлення', default=timezone.now)
 
     def __str__(self):
         return str(self.id)

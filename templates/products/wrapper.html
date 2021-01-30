@@ -52,10 +52,12 @@
 					<i id="icon-search" class="fas fa-search"></i>
 					<input id="search" type="text" name="search" placeholder="Search...">
 				</div>
+                {% if request.user.is_authenticated %}
 				<div class="col-sm">
 					<a class="icons" href="#"><i class="far fa-heart"></i></a>
 					<a class="icons" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-danger">{{ cart.products.count }}</span></a>
 				</div>
+                {% endif %}
 			</div>
 		</div>
 	</div>

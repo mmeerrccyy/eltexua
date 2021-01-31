@@ -4,11 +4,10 @@
 <div class="row" style="margin-bottom: 50px; margin-top: 50px">
 <div class="col-md-6 offset-md-3">
     <h3 class="text-center">Реєстрація</h3>
-    <hr>
     <form action="" method="POST">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" class="btn btn-success btn-block" value="Зареєструватись">
+        <input type="submit" class="btn btn-success btn-block btn-registration" value="Зареєструватись">
     </form>
 </div>
 </div>

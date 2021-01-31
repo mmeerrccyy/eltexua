@@ -3,3 +3,4 @@ Pillow==8.1.0
 mysqlclient==2.0.3
 python-decouple==3.4
 fontawesome-free==5.15.2
+django-crispy==1.8.1

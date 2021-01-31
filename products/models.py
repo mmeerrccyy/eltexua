@@ -133,13 +133,13 @@ class Product(models.Model):
     class Meta:
         abstract = True
 
-    category = models.ForeignKey(Category, verbose_name='Категорія', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, verbose_name='Категорія', on_delete=models.CASCADE, null=True)
     fk_brand = models.ForeignKey(Brand, verbose_name="Бренд", on_delete=CASCADE)
     model = models.CharField(verbose_name="Модель", max_length=250)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, null=True)
     img = models.ImageField(verbose_name="Зображення")
     description = models.TextField(verbose_name='Опис', blank=True)
-    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Ціна')
+    price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Ціна', null=True)
 
     def __str__(self):
         return self.model
@@ -164,8 +164,8 @@ class Notebook(Product):
     )
     ram = models.CharField(choices=ram_types, verbose_name="Тип оперативної пам'яті", max_length=10)
     ram_capacity = models.PositiveSmallIntegerField(verbose_name="Об'єм оперативної пам'яті, Гб")
-    battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години")
-    battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh")
+    battery_lifetime = models.PositiveSmallIntegerField(verbose_name="Час автономної роботи, години", null=True)
+    battery_capacity = models.PositiveSmallIntegerField(verbose_name="Ємність батареї, mAh", null=True)
 
     def __str__(self):
         return "{} {}".format(self.fk_brand, self.model)

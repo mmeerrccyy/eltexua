@@ -12,11 +12,15 @@
     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap-grid.min.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome_free/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-	<script type="text/javascript" src={% static "js/main.js" %}></script>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+	<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
     {% block head %}
 	{% endblock %}
 </head>
 <body>
+
+	<!-- header -->
+
 	<header class="header">
 		<div class="container-fluid">
 			<div class="row align-items-center">
@@ -26,42 +30,27 @@
 				<div class="col-sm">
 					<a href="{% url 'Index' %}"><img src="{% static 'img/logo.png' %}" alt="logotype"></a>
 				</div>
-                {% if not request.user.is_authenticated %}
+            {% if not request.user.is_authenticated %}
 				<div class="col-sm">
-					<a class="login-button" href="{% url 'login' %}">Увійти<i class="fas fa-user"></i></a>
+					<a class="login-button login" href="{% url 'login' %}">Увійти<i class="fas fa-user"></i></a>
+					<a class="login-button registration" href="{% url 'registration' %}">Зареєструватись<i class="fas fa-user"></i></a>
+					<a class="icons" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-danger">{{ cart.products.count }}</span></a>
 				</div>
-                    <div class="col-sm">
-					<a class="login-button" href="{% url 'registration' %}">Зареєструватись<i class="fas fa-user"></i></a>
-				</div>
-                {% else %}
-                    <div class="col-sm">
+            {% else %}
+            <div class="col-sm">
 					<a class="login-button active">{{ request.user.username }}<i class="fas fa-user"></i></a>
-				</div>
-                    <div class="col-sm">
 					<a class="login-button" href="{% url 'logout' %}">Вийти<i class="fas fa-user"></i></a>
+					<a class="icons" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-danger">{{ cart.products.count }}</span></a>
 				</div>
-                {% endif %}
+            {% endif %}
 			</div>
 		</div>
 	</header>
-	<div class="under-head">
-		<div class="container-fluid">
-			<div class="row align-items-center">
-				<div class="col-sm"></div>
-				<div class="col-sm">
-					<i id="icon-search" class="fas fa-search"></i>
-					<input id="search" type="text" name="search" placeholder="Search...">
-				</div>
-                {% if request.user.is_authenticated %}
-				<div class="col-sm">
-					<a class="icons" href="#"><i class="far fa-heart"></i></a>
-					<a class="icons" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-danger">{{ cart.products.count }}</span></a>
-				</div>
-                {% endif %}
-			</div>
-		</div>
-	</div>
-    <div>
+	<div class="under-head"></div>
+
+	<!-- category -->
+
+    <div class="category">
         <div>
           {% for category in categories %}
           <a href="{{ category.url }}">{{ category.name }} ({{ category.count }})</a>
@@ -72,13 +61,15 @@
         {% for message in messages %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{ message }}</strong>
-                <button type="button" class="btn-close"  data-dismiss="alert" aria-label="Close"></button
-              </button>
+                <button type="button" class="btn-close"  data-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}
     {% endif %}
     {% block content %}
     {% endblock %}
+
+    <!-- footer -->
+
 	<footer class="footer">
 		<div class="container-fluid">
 			<div class="row align-items-center">
@@ -105,10 +96,10 @@
 				</div>
 				<div class="col-sm">
 					<div class="content">
-						<h4>Соціальні мережі</h4>
-						<i class="fab fa-telegram"></i>
-						<i class="fab fa-instagram"></i>
-						<i class="fab fa-facebook"></i>
+						<h6>Соціальні мережі</h6>
+						<a href="#"><i class="fab fa-telegram"></i></a>
+						<a href="#"><i class="fab fa-instagram"></i></a>
+						<a href="#"><i class="fab fa-facebook"></i></a>
 					</div>
 				</div>
 			</div>

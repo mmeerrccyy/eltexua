@@ -35,22 +35,42 @@ i {
 	text-decoration: none;
 	font-size: .9rem;
 	font-weight: 500;
-	padding: 20px;
+}
+
+.login-button {
+	margin: 10px;
+	padding: 3px;
 }
 
 .nav-menu {
 	padding: 10px;
-	border: 1px solid #fff;
+	border: 2px solid #fff;
 	border-radius: 5px;
+	transition: .2s all linear;
+}
+
+.nav-menu:hover {
+	background-color: #fff;
+	color: #88c00f;
 }
 
 .login-button:hover {
+	color: #fff;
 	text-decoration: underline;
+}
+
+.login,
+.registration {
+	font-size: .75rem;
 }
 
 .header img {
 	width: 150px;
 	height: 104px;
+}
+
+.header .icons:hover {
+	color: #fff;
 }
 
 @media (max-width: 830px) {
@@ -81,7 +101,7 @@ i {
 
 .under-head {
 	width: 100%;
-	height: 45px;
+	height: 17px;
 	background-color: #74a50c;
 }
 
@@ -123,7 +143,20 @@ i {
 		margin: auto;
 	}
 }
-.left_menu{
+
+/* login/registration */
+
+.btn-login {
+	margin-top: 20px;
+	width: 150px;
+}
+
+.btn-registration {
+	margin-top: 20px;
+	width: 230px;
+}
+
+/*.left_menu{
 	width: 15vw;
 	background-color: white;
 	height: 600px;
@@ -162,17 +195,20 @@ input{
 	padding-left: 35px;
 }
 .show {display: block;}
+*/
 
-.price_block{
+.price_block {
 	text-align: center;
 	font-size: 20px;
 }
-.price_block input{
+
+.price_block input {
 	padding: 1px;
 	background-color: darkgrey;
 	border: 0px;
 	outline: none;
 }
+
 .footer {
 	margin-top: auto;
 	width: 100%;
@@ -204,4 +240,5 @@ input{
 
 .footer i {
 	padding: 20px;
+	color: #fff;
 }

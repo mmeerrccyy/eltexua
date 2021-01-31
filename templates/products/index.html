@@ -10,7 +10,7 @@
                 <div class="col-sm-3 place">
                     <div class="blocks">
                       <img class="img-fluid" src="{{ product.img.url }}" alt="photo-info">
-                      <a href="{{ product.get_absolute_url }}"><h3 class="description">{{ product.brand }} {{ product.model }}</h3></a>
+                      <a href="{{ product.get_absolute_url }}"><h3 class="description">{{ product.fk_brand }} {{ product.model }}</h3></a>
                       <p class="description">{{ product.price }} грн</p>
                     </div>
                 </div>

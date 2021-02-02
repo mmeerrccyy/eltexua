@@ -47,7 +47,17 @@ i {
 	border: 2px solid #fff;
 	border-radius: 5px;
 	transition: .2s all linear;
+	position: relative;
 }
+
+/*---for maxym---*/
+
+
+
+
+
+
+/*---for maxym---*/
 
 .nav-menu:hover {
 	background-color: #fff;

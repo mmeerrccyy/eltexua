@@ -26,6 +26,14 @@
 			<div class="row align-items-center">
 				<div class="col-sm">
 					<a class="nav-menu" href="#"><i class="fas fa-bars"></i>Каталог товарів</a>
+					<!-- <ul>
+						<li>Аудіосистеми</li>
+						<li>Ноутбуки</li>
+						<li>Комп'ютери</li>
+						<li>Смартфони</li>
+						<li>Планшети</li>
+						<li>Телевізори</li>
+					</ul> -->
 				</div>
 				<div class="col-sm">
 					<a href="{% url 'Index' %}"><img src="{% static 'img/logo.png' %}" alt="logotype"></a>
@@ -56,6 +64,7 @@
           {% endfor %}
         </div>
     </div>
+
     {% if messages %}
         {% for message in messages %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -64,7 +73,11 @@
             </div>
         {% endfor %}
     {% endif %}
+
+    <!-- ------------------- -->
+
     {% block content %}
+
     {% endblock %}
 
     <!-- footer -->

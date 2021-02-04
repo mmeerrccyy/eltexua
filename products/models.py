@@ -28,7 +28,7 @@ class CategoryManager(models.Manager):
         'Навушники': 'audio__count',
         'Телевізори': 'tvset__count',
         'Планшети': 'tablet__count',
-        'Комп\'ютери': 'personalcomputer__count',
+        'ПК': 'personalcomputer__count',
     }
 
     def get_queryset(self):
@@ -103,6 +103,7 @@ class LatestProductsManager:
                     return sorted(
                         products, key=lambda x: x.__class__._meta.model_name.startswith(with_respect_to), reverse=True
                     )
+        print(products)
         return products
 
 

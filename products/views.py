@@ -33,7 +33,7 @@ class BaseView(CartMixin, View):
             'smartphone',
             'tvset',
             'tablet',
-            'audio_system',
+            'audio',
             'personalcomputer',
         )
         context = {

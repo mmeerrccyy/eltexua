@@ -52,11 +52,17 @@
   margin: auto;
 }
 
+
+.absolute-url {
+  color: #000;
+  text-decoration: none;
+}
+
 .description {
   text-align: center;
-  margin-bottom: 10px;
-  font-size: 1rem;
-}
+  margin-bottom: 20px;
+  font-size: .9rem;
+
 
 /*partners*/
 

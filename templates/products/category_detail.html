@@ -43,16 +43,18 @@
         </ol>
     </nav>
  <div class="container-fluid">
-        <div class="row no-gutters">
-            {% for product in category_products %}
-                <div class="col-sm-auto place">
+    <div class="row no-gutters">
+        {% for product in category_products %}
+            <div class="col-sm-auto place">
+                <a class="absolute-url" href="{{ product.get_absolute_url }}">
                     <div class="blocks">
-                      <img class="img-fluid" src="{{ product.img.url }}" alt="photo-info">
-                      <a href="{{ product.get_absolute_url }}"><h3 class="description">{{ product.fk_brand }} {{ product.model }}</h3></a>
-                      <p class="description">{{ product.price }} грн</p>
+                        <img class="img-fluid" src="{{ product.img.url }}" alt="photo-info">
+                        <h3 class="description">{{ product.fk_brand }} {{ product.model }}</h3>
+                        <p class="description">{{ product.price }} грн</p>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
  </div>
 {% endblock %}

@@ -94,7 +94,7 @@ class LatestProductsManager:
         products = []
         ct_models = ContentType.objects.filter(model__in=args)
         for ct_model in ct_models:
-            model_products = ct_model.model_class()._base_manager.all().order_by('-id')[:4]
+            model_products = ct_model.model_class()._base_manager.all().order_by('-id')
             products.extend(model_products)
         if with_respect_to:
             ct_model = ContentType.objects.filter(model=with_respect_to)
@@ -139,7 +139,7 @@ class Product(models.Model):
     model = models.CharField(verbose_name="Модель", max_length=250)
     slug = models.SlugField(unique=True, null=True)
     img = models.ImageField(verbose_name="Зображення")
-    description = models.TextField(verbose_name='Опис', blank=True)
+    description = models.TextField(verbose_name='Опис', blank=True, null=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Ціна', null=True)
 
     def __str__(self):

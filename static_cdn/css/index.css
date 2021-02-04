@@ -7,6 +7,16 @@
 
 /*blocks for goods*/
 
+.main-caption {
+  margin: 20px 0 20px 0;
+}
+
+.main-caption::after {
+  content: '';
+  display: block;
+  border-bottom: 2px solid #88c00f;
+}
+
 .blocks {
   width: 250px;
   height: 300px;
@@ -52,7 +62,6 @@
   margin: auto;
 }
 
-
 .absolute-url {
   color: #000;
   text-decoration: none;
@@ -72,10 +81,17 @@
   background-color: #030f2c;
   margin-top: auto;
   padding: 15px;
+  border-radius: 15px 15px 0 0;
+  border-bottom: 2px solid #88c00f;
 }
 
 .partner-logo {
   max-width: 130px;
   max-height: 60px;
   margin-left: 4vw;
+}
+
+.profile-table th,
+.profile-table td {
+  width: 20%;
 }

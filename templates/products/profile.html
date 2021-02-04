@@ -2,11 +2,11 @@
 
 {% block content %}
 
-    <h3>Ваші замовлення</h3>
+    <h3 style="margin-left: 10px;">Ваші замовлення</h3>
     {% if not orders.count %}
-        <h3>У вас ще немає замовлень</h3>
+    <h3 style="margin-left: 10px;">У вас ще немає замовлень</h3>
     {% else %}
-        <table class="table">
+        <table class="table profile-table">
             <thead>
                 <th class="col">Номер замовлення</th>
                 <th class="col">Статус</th>
@@ -15,18 +15,18 @@
             </thead>
             <tbody>
                 {% for order in orders %}
-                    <tr>
-                        <td scope="row">{{ order.id }}</td>
-                        <td scope="row">{{ order.get_status_display }}</td>
-                        <td scope="row">{{ order.cart.final_price }}</td>
-                        <td scope="row">
-                            <ul>
-                                {% for item in order.cart.products.all %}
-                                    <li>{{ item }} x {{ item.qty }}</li>
-                                {% endfor %}
-                            </ul>
-                        </td>
-                    </tr>
+                <tr>
+                    <td scope="row">{{ order.id }}</td>
+                    <td scope="row">{{ order.get_status_display }}</td>
+                    <td scope="row">{{ order.cart.final_price }}</td>
+                    <td scope="row">
+                        <ul>
+                            {% for item in order.cart.products.all %}
+                            <li style="list-style: none;">{{ item }} x {{ item.qty }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>

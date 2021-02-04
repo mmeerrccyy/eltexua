@@ -7,8 +7,7 @@
     <div class="container-fluid">
         <div class="row no-gutters">
         {% if not notebooks.count %}
-            <h2>Ноутбуки</h2>
-            <hr>
+            <h3 class="main-caption">Ноутбуки</h3>
             {% for notebook in notebooks %}
                 <div class="col-sm-auto place">
                     <a class="absolute-url" href="{{ notebook.get_absolute_url }}">
@@ -26,8 +25,7 @@
     <div class="container-fluid">
         <div class="row no-gutters">
         {% if not smartphones.count %}
-            <h2>Смартфони</h2>
-            <hr>
+            <h3 class="main-caption">Смартфони</h3>
             {% for smartphone in smartphones %}
                 <div class="col-sm-auto place">
                     <a class="absolute-url" href="{{ smartphone.get_absolute_url }}">
@@ -45,8 +43,7 @@
     <div class="container-fluid">
         <div class="row no-gutters">
         {% if not tvsets.count %}
-            <h2>Телевізори</h2>
-            <hr>
+            <h3 class="main-caption">Телевізори</h3>
             {% for tvset in tvsets %}
                 <div class="col-sm-auto place">
                     <a class="absolute-url" href="{{ tvset.get_absolute_url }}">
@@ -64,8 +61,7 @@
     <div class="container-fluid">
         <div class="row no-gutters">
         {% if not tablets.count %}
-            <h2>Планшети</h2>
-            <hr>
+            <h3 class="main-caption">Планшети</h3>
             {% for tablet in tablets %}
                 <div class="col-sm-auto place">
                     <a class="absolute-url" href="{{ tablet.get_absolute_url }}">
@@ -83,8 +79,7 @@
     <div class="container-fluid">
         <div class="row no-gutters">
         {% if not audios.count %}
-            <h2>Навушники</h2>
-            <hr>
+            <h3 class="main-caption">Навушники</h3>
             {% for audio in audios %}
                 <div class="col-sm-auto place">
                     <a class="absolute-url" href="{{ audio.get_absolute_url }}">
@@ -102,8 +97,7 @@
     <div class="container-fluid">
         <div class="row no-gutters">
         {% if not pcs.count %}
-            <h2>Персональні комп'ютери</h2>
-            <hr>
+            <h3 class="main-caption">Персональні комп'ютери</h3>
             {% for pc in pcs %}
                 <div class="col-sm-auto place">
                     <a class="absolute-url" href="{{ pc.get_absolute_url }}">
@@ -119,7 +113,7 @@
         </div>
     </div>
     <div class="partners">
-    	<div class="container-fluid">
+        <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-sm"><a href="https://www.samsung.com"><img class="partner-logo" src="{% static 'img/Samsung.png' %}" alt="partner-logo"></a></div>
             <div class="col-sm"><a href="https://www.apple.com"><img class="partner-logo" src="{% static 'img/Apple.png' %}" alt="partner-logo"></a></div>
@@ -127,6 +121,6 @@
             <div class="col-sm"><a href="https://www.bosch.com"><img class="partner-logo" src="{% static 'img/bosch.png' %}" alt="partner-logo"></a></div>
             <div class="col-sm"><a href="https://www.philips.ua"><img class="partner-logo" src="{% static 'img/Philips.png' %}" alt="partner-logo"></a></div>
         </div>
-    	</div>
+        </div>
     </div>
 {% endblock %}

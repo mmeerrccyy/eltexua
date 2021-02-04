@@ -37,13 +37,13 @@
 				</div>
             {% if not request.user.is_authenticated %}
 				<div class="col-sm">
-					<a class="login-button login" href="{% url 'login' %}">Увійти<i class="fas fa-user"></i></a>
-					<a class="login-button registration" href="{% url 'registration' %}">Зареєструватись<i class="fas fa-user"></i></a>
+					<a class="login" href="{% url 'login' %}">Увійти<i class="fas fa-user"></i></a>
+					<a class="registration" href="{% url 'registration' %}">Зареєструватись<i class="fas fa-user"></i></a>
 				</div>
             {% else %}
             <div class="col-sm">
-					<a class="login-button" href="{% url 'profile' %}">{{ request.user.username }}<i class="fas fa-user"></i></a>
-					<a class="login-button" href="{% url 'logout' %}">Вийти<i class="fas fa-user"></i></a>
+					<a class="profile" href="{% url 'profile' %}">{{ request.user.username }}<i class="fas fa-user"></i></a>
+					<a class="logout" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i></a>
 					<a class="icons" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-danger">{{ cart.products.count }}</span></a>
 				</div>
             {% endif %}

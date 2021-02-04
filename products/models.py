@@ -56,7 +56,7 @@ class CartProduct(models.Model):
     final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Загальна ціна')
 
     def __str__(self):
-        return "{}".format(self.content_object.model)
+        return "{}".format(self.content_object)
 
     def save(self, *args, **kwargs):
         self.final_price = self.qty * self.content_object.price
@@ -94,7 +94,7 @@ class LatestProductsManager:
         products = []
         ct_models = ContentType.objects.filter(model__in=args)
         for ct_model in ct_models:
-            model_products = ct_model.model_class()._base_manager.all().order_by('-id')[:4]
+            model_products = ct_model.model_class()._base_manager.all().order_by('-id')
             products.extend(model_products)
         if with_respect_to:
             ct_model = ContentType.objects.filter(model=with_respect_to)
@@ -103,7 +103,6 @@ class LatestProductsManager:
                     return sorted(
                         products, key=lambda x: x.__class__._meta.model_name.startswith(with_respect_to), reverse=True
                     )
-        print(products)
         return products
 
 

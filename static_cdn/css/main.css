@@ -30,16 +30,11 @@ i {
 	text-align: center;
 }
 
-.nav-menu, .login-button {
+.nav-menu {
 	color: #fff;
 	text-decoration: none;
 	font-size: .9rem;
 	font-weight: 500;
-}
-
-.login-button {
-	margin: 10px;
-	padding: 3px;
 }
 
 .nav-menu {
@@ -50,28 +45,39 @@ i {
 	position: relative;
 }
 
-/*---for maxym---*/
-
-
-
-
-
-
-/*---for maxym---*/
-
 .nav-menu:hover {
 	background-color: #fff;
 	color: #88c00f;
 }
 
-.login-button:hover {
+.login,
+.registration {
+	font-size: .9rem;
+	color: #fff;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.login:hover,
+.registration:hover {
 	color: #fff;
 	text-decoration: underline;
 }
 
-.login,
-.registration {
-	font-size: .75rem;
+.logout {
+	color: #fff;
+	margin-right: 25px;
+}
+
+.profile {
+	color: #fff;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.profile:hover,
+.logout:hover {
+	color: #fff;
 }
 
 .header img {
@@ -88,7 +94,7 @@ i {
 	.header {
 		width: 100%;
 		height: 90px;
-		background-color: #2d2f31;
+		background-color: #88c00f;
 		text-align: center;
 	}
 
@@ -111,11 +117,18 @@ i {
 
 .under-head {
 	width: 100%;
-	height: 17px;
+	height: 12px;
 	background-color: #74a50c;
+	border-radius: 0 0 10px 10px;
+	box-shadow: 0 5px 5px 1px #b2b2b2; /* x, y, radius, width, color */
 }
 
-#search {
+.icons {
+	color: #fff;
+	font-size: .9rem;
+}
+
+/*#search {
 	width: 600px;
 	height: 30px;
 	margin: auto;
@@ -136,11 +149,6 @@ i {
 	z-index: 5;
 }
 
-.icons {
-	color: #fff;
-	font-size: .9rem;
-}
-
 .icons:nth-child(1) {
 	margin-left: 30%;
 }
@@ -152,7 +160,7 @@ i {
 		height: 30px;
 		margin: auto;
 	}
-}
+}*/
 
 /* login/registration */
 

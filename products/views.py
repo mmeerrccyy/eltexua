@@ -271,15 +271,11 @@ class RegistrationView(CartMixin, View):
             new_user = form.save(commit=False)
             new_user.username = form.cleaned_data['username']
             new_user.email = form.cleaned_data['email']
-            new_user.first_name = form.cleaned_data['first_name']
-            new_user.last_name = form.cleaned_data['last_name']
-            new_user.save()
             new_user.set_password(form.cleaned_data['password'])
             new_user.save()
             Customer.objects.create(
                 user=new_user,
-                phone=form.cleaned_data['phone'],
-                address=form.cleaned_data['address']
+                phone=form.cleaned_data['phone']
             )
             user = authenticate(
                 username=new_user.username, password=form.cleaned_data['password']

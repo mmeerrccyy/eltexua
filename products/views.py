@@ -47,7 +47,7 @@ class BaseView(CartMixin, View):
 class ProductDetailView(CartMixin, CategoryDetailMixin, DetailView):
     CT_MODEL_MODEL_CLASS = {
         'notebook': Notebook,
-        'pc': PersonalComputer,
+        'personalcomputer': PersonalComputer,
         'tablet': Tablet,
         'smartphone': Smartphone,
         'tvset': TVset,

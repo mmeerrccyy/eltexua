@@ -45,7 +45,7 @@
 				</div>
             {% else %}
             <div class="col-sm">
-					<a class="login-button active">{{ request.user.username }}<i class="fas fa-user"></i></a>
+					<a class="login-button" href="{% url 'profile' %}">{{ request.user.username }}<i class="fas fa-user"></i></a>
 					<a class="login-button" href="{% url 'logout' %}">Вийти<i class="fas fa-user"></i></a>
 					<a class="icons" href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-danger">{{ cart.products.count }}</span></a>
 				</div>
@@ -58,11 +58,11 @@
 	<!-- category -->
 
     <div class="category">
-      <div>
-         {% for category in categories %}
-         <a href="{{ category.url }}">{{ category.name }} ({{ category.count }})</a>
-         {% endfor %}
-      </div>
+        <div>
+          {% for category in categories %}
+          <a href="{{ category.url }}">{{ category.name }} ({{ category.count }})</a>
+          {% endfor %}
+        </div>
     </div>
 
     {% if messages %}

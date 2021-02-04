@@ -2,9 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.db import transaction
 from django.views.generic import DetailView, View
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.contrib import messages
-from django.contrib.contenttypes.models import ContentType
 
 from .models import *
 from .mixins import CategoryDetailMixin, CartMixin
@@ -34,7 +33,7 @@ class BaseView(CartMixin, View):
             'smartphone',
             'tvset',
             'tablet',
-            'audio_system',
+            'audio',
             'personalcomputer',
         )
         context = {
@@ -48,7 +47,7 @@ class BaseView(CartMixin, View):
 class ProductDetailView(CartMixin, CategoryDetailMixin, DetailView):
     CT_MODEL_MODEL_CLASS = {
         'notebook': Notebook,
-        'pc': PersonalComputer,
+        'personalcomputer': PersonalComputer,
         'tablet': Tablet,
         'smartphone': Smartphone,
         'tvset': TVset,
@@ -87,123 +86,144 @@ class CategoryDetailView(CartMixin, CategoryDetailMixin, DetailView):
 class AddToCartView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
-        ct_model, product_slug = kwargs.get('ct_model'), kwargs.get('slug')
-        content_type = ContentType.objects.get(model=ct_model)
-        product = content_type.model_class().objects.get(slug=product_slug)
-        cart_product, created = CartProduct.objects.get_or_create(
-            user=self.cart.owner,
-            cart=self.cart,
-            content_type=content_type,
-            object_id=product.id,
-        )
-        if created:
-            self.cart.products.add(cart_product)
-        recalc_cart(self.cart)
-        messages.add_message(request, messages.INFO, 'Товар успішно додано!')
-        return HttpResponseRedirect('/cart/')
+        if request.user.is_authenticated:
+            ct_model, product_slug = kwargs.get('ct_model'), kwargs.get('slug')
+            content_type = ContentType.objects.get(model=ct_model)
+            product = content_type.model_class().objects.get(slug=product_slug)
+            cart_product, created = CartProduct.objects.get_or_create(
+                user=self.cart.owner,
+                cart=self.cart,
+                content_type=content_type,
+                object_id=product.id,
+            )
+            if created:
+                self.cart.products.add(cart_product)
+            recalc_cart(self.cart)
+            messages.add_message(request, messages.INFO, 'Товар успішно додано!')
+            return HttpResponseRedirect('/cart/')
+        else:
+            raise Http404('Сторінки не існує')
 
 
 class DeleteFromCartView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
-        ct_model, product_slug = kwargs.get('ct_model'), kwargs.get('slug')
-        content_type = ContentType.objects.get(model=ct_model)
-        product = content_type.model_class().objects.get(slug=product_slug)
-        cart_product = CartProduct.objects.get(
-            user=self.cart.owner,
-            cart=self.cart,
-            content_type=content_type,
-            object_id=product.id,
-        )
-        self.cart.products.remove(cart_product)
-        cart_product.delete()
-        recalc_cart(self.cart)
-        messages.add_message(request, messages.INFO, 'Товар успішно видалено!')
-        return HttpResponseRedirect('/cart/')
+        if request.user.is_authenticated:
+            ct_model, product_slug = kwargs.get('ct_model'), kwargs.get('slug')
+            content_type = ContentType.objects.get(model=ct_model)
+            product = content_type.model_class().objects.get(slug=product_slug)
+            cart_product = CartProduct.objects.get(
+                user=self.cart.owner,
+                cart=self.cart,
+                content_type=content_type,
+                object_id=product.id,
+            )
+            self.cart.products.remove(cart_product)
+            cart_product.delete()
+            recalc_cart(self.cart)
+            messages.add_message(request, messages.INFO, 'Товар успішно видалено!')
+            return HttpResponseRedirect('/cart/')
+        else:
+            raise Http404('Сторінки не існує')
 
 
 class ChangeQTYView(CartMixin, View):
 
     def post(self, request, *args, **kwargs):
-        ct_model, product_slug = kwargs.get('ct_model'), kwargs.get('slug')
-        content_type = ContentType.objects.get(model=ct_model)
-        product = content_type.model_class().objects.get(slug=product_slug)
-        cart_product = CartProduct.objects.get(
-            user=self.cart.owner,
-            cart=self.cart,
-            content_type=content_type,
-            object_id=product.id,
-        )
-        qty = int(request.POST.get('qty'))
-        cart_product.qty = qty
-        cart_product.save()
-        recalc_cart(self.cart)
-        messages.add_message(request, messages.INFO, 'Кількість товару успішно зміненно!')
-        return HttpResponseRedirect('/cart/')
+        if request.user.is_authenticated:
+            ct_model, product_slug = kwargs.get('ct_model'), kwargs.get('slug')
+            content_type = ContentType.objects.get(model=ct_model)
+            product = content_type.model_class().objects.get(slug=product_slug)
+            cart_product = CartProduct.objects.get(
+                user=self.cart.owner,
+                cart=self.cart,
+                content_type=content_type,
+                object_id=product.id,
+            )
+            qty = int(request.POST.get('qty'))
+            cart_product.qty = qty
+            cart_product.save()
+            recalc_cart(self.cart)
+            messages.add_message(request, messages.INFO, 'Кількість товару успішно зміненно!')
+            return HttpResponseRedirect('/cart/')
+        else:
+            raise Http404('Сторінки не існує')
 
 
 class CartView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
-        categories = Category.objects.get_categories_for_left_sidebar()
-        context = {
-            'cart': self.cart,
-            'categories': categories,
-        }
-        return render(request, 'products/cart.html', context)
+        if request.user.is_authenticated:
+            categories = Category.objects.get_categories_for_left_sidebar()
+            context = {
+                'cart': self.cart,
+                'categories': categories,
+            }
+            return render(request, 'products/cart.html', context)
+        else:
+            raise Http404('Сторінки не існує')
 
 
 class CheckoutView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
-        categories = Category.objects.get_categories_for_left_sidebar()
-        form = OrderForm(request.POST or None)
-        context = {
-            'cart': self.cart,
-            'categories': categories,
-            'form': form,
-        }
-        return render(request, 'products/checkout.html', context)
+        if request.user.is_authenticated:
+            categories = Category.objects.get_categories_for_left_sidebar()
+            form = OrderForm(request.POST or None)
+            context = {
+                'cart': self.cart,
+                'categories': categories,
+                'form': form,
+            }
+        else:
+            raise Http404('Сторінки не існує')
 
 
 class MakeOrderView(CartMixin, View):
 
     @transaction.atomic
     def post(self, request, *args, **kwargs):
-        form = OrderForm(request.POST or None)
-        customer = Customer.objects.get(user=request.user)
-        if form.is_valid():
-            new_order = form.save(commit=False)
-            new_order.customer = Customer.objects.get(user=request.user)
-            new_order.first_name = form.cleaned_data['first_name']
-            new_order.last_name = form.cleaned_data['last_name']
-            new_order.phone = form.cleaned_data['phone']
-            new_order.address = form.cleaned_data['address']
-            new_order.buying_type = form.cleaned_data['buying_type']
-            new_order.date = form.cleaned_data['order_date']
-            new_order.comment = form.cleaned_data['comment']
-            self.cart.in_order = True
-            self.cart.save()
-            new_order.cart = self.cart
-            new_order.save()
-            customer.orders.add(new_order)
-            messages.add_message(request, messages.INFO, 'Замовлення успішно відправленно на обробку!')
-            return HttpResponseRedirect('/')
-        messages.add_message(request, messages.INFO, 'Ой, щось пішло не так')
-        return HttpResponseRedirect('/checkout/')
+        if request.user.is_authenticated:
+            form = OrderForm(request.POST or None)
+            customer = Customer.objects.get(user=request.user)
+            if form.is_valid():
+                new_order = form.save(commit=False)
+                new_order.customer = customer
+                new_order.first_name = form.cleaned_data['first_name']
+                new_order.last_name = form.cleaned_data['last_name']
+                new_order.phone = form.cleaned_data['phone']
+                new_order.address = form.cleaned_data['address']
+                new_order.buying_type = form.cleaned_data['buying_type']
+                new_order.order_date = form.cleaned_data['order_date']
+                new_order.comment = form.cleaned_data['comment']
+                new_order.save()
+                self.cart.in_order = True
+                self.cart.save()
+                new_order.cart = self.cart
+                new_order.save()
+                customer.orders.add(new_order)
+                messages.add_message(request, messages.INFO, 'Замовлення успішно відправленно на обробку!')
+                return HttpResponseRedirect('/')
+            messages.add_message(request, messages.INFO, 'Ой, щось пішло не так')
+            return HttpResponseRedirect('/checkout/')
+        else:
+            raise Http404('Сторінки не існує')
 
 
 class LoginView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
-        form = LoginForm(request.POST or None)
-        categories = Category.objects.get_categories_for_left_sidebar()
-        context = {
-            'form': form,
-            'categories': categories,
-            'cart': self.cart,
-        }
-        return render(request, 'products/login.html', context)
+        if not request.user.is_authenticated:
+            form = LoginForm(request.POST or None)
+            categories = Category.objects.get_categories_for_left_sidebar()
+            context = {
+                'form': form,
+                'categories': categories,
+                'cart': self.cart,
+            }
+            return render(request, 'products/login.html', context)
+        else:
+            raise Http404('Сторінки не існує')
 
     def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST or None)
@@ -226,14 +246,17 @@ class LoginView(CartMixin, View):
 class RegistrationView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
-        form = RegistrationForm(request.POST or None)
-        categories = Category.objects.get_categories_for_left_sidebar()
-        context = {
-            'form': form,
-            'categories': categories,
-            'cart': self.cart
-        }
-        return render(request, 'products/registration.html', context)
+        if not request.user.is_authenticated:
+            form = RegistrationForm(request.POST or None)
+            categories = Category.objects.get_categories_for_left_sidebar()
+            context = {
+                'form': form,
+                'categories': categories,
+                'cart': self.cart
+            }
+            return render(request, 'products/registration.html', context)
+        else:
+            raise Http404('Сторінки не існує')
 
     def post(self, request, *args, **kwargs):
         form = RegistrationForm(request.POST or None)
@@ -256,10 +279,27 @@ class RegistrationView(CartMixin, View):
             )
             login(request, user)
             return HttpResponseRedirect('/')
-        categories = Category.objects.all()
+        categories = Category.objects.get_categories_for_left_sidebar()
         context = {
             'form': form,
             'categories': categories,
             'cart': self.cart
         }
         return render(request, 'products/registration.html', context)
+
+
+class ProfileView(CartMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            customer = Customer.objects.get(user=request.user)
+            orders = Order.objects.filter(customer=customer).order_by('-created_at')
+            categories = Category.objects.get_categories_for_left_sidebar()
+            context = {
+                'orders': orders,
+                'cart': self.cart,
+                'categories': categories,
+                }
+            return render(request, 'products/profile.html', context)
+        else:
+            raise Http404('Сторінки не існує')

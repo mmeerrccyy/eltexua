@@ -64,10 +64,10 @@ PRODUCT_SPEC = {
         'Час автономної роботи, години': 'battery_lifetime',
         'Ємніть батареї, мАг': 'battery_capacity',
     },
-    'tv': {
+    'tvset': {
         'Діагональ дисплея': 'display',
         'Формат екрану': 'ds_type',
-        'Роздільна здатність екрану': 'product.ds_resolution',
+        'Роздільна здатність екрану': 'ds_resolution',
     },
     'audio': {
         'Тип': 'audio_type',

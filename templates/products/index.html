@@ -8,13 +8,13 @@
         <div class="row no-gutters">
             {% for product in products %}
                 <div class="col-sm-auto place">
-                    <div class="blocks">
-                      <img class="img-fluid" src="{{ product.img.url }}" alt="photo-info">
-                      <a href="{{ product.get_absolute_url }}">
-                        <h3 class="description">{{ product.fk_brand }} {{ product.model }}</h3>
-                      </a>
-                      <p class="description">{{ product.price }} грн</p>
-                    </div>
+                    <a class="absolute-url" href="{{ product.get_absolute_url }}">
+                        <div class="blocks">
+                            <img class="img-fluid" src="{{ product.img.url }}" alt="photo-info">
+                            <h3 class="description">{{ product.fk_brand }} {{ product.model }}</h3>
+                            <p class="description">{{ product.price }} грн</p>
+                        </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>

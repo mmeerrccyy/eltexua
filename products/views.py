@@ -181,6 +181,7 @@ class CheckoutView(CartMixin, View):
                 'categories': categories,
                 'form': form,
             }
+            return render(request, 'products/checkout.html', context)
         else:
             raise Http404('Сторінки не існує')
 

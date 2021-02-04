@@ -28,17 +28,23 @@ class BaseView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
         categories = Category.objects.get_categories_for_left_sidebar()
-        products = LatestProducts.objects.get_products_for_main_page(
-            'notebook',
-            'smartphone',
-            'tvset',
-            'tablet',
-            'audio',
-            'personalcomputer',
+        notebooks = LatestProducts.objects.get_products_for_main_page(
+            'notebook'
+            # 'personalcomputer',
         )
+        smartphones = LatestProducts.objects.get_products_for_main_page('smartphone')
+        tvsets = LatestProducts.objects.get_products_for_main_page('tvset')
+        tablets = LatestProducts.objects.get_products_for_main_page('tablet')
+        audios = LatestProducts.objects.get_products_for_main_page('audio')
+        pcs = LatestProducts.objects.get_products_for_main_page('personalcomputer')
         context = {
             'categories': categories,
-            'products': products,
+            'notebooks': notebooks,
+            'smartphones': smartphones,
+            'tvsets': tvsets,
+            'tablets': tablets,
+            'audios': audios,
+            'pcs': pcs,
             'cart': self.cart
         }
         return render(request, 'products/index.html', context)
@@ -175,6 +181,7 @@ class CheckoutView(CartMixin, View):
                 'categories': categories,
                 'form': form,
             }
+            return render(request, 'products/checkout.html', context)
         else:
             raise Http404('Сторінки не існує')
 
@@ -264,15 +271,11 @@ class RegistrationView(CartMixin, View):
             new_user = form.save(commit=False)
             new_user.username = form.cleaned_data['username']
             new_user.email = form.cleaned_data['email']
-            new_user.first_name = form.cleaned_data['first_name']
-            new_user.last_name = form.cleaned_data['last_name']
-            new_user.save()
             new_user.set_password(form.cleaned_data['password'])
             new_user.save()
             Customer.objects.create(
                 user=new_user,
-                phone=form.cleaned_data['phone'],
-                address=form.cleaned_data['address']
+                phone=form.cleaned_data['phone']
             )
             user = authenticate(
                 username=new_user.username, password=form.cleaned_data['password']

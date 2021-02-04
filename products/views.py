@@ -159,6 +159,7 @@ class CartView(CartMixin, View):
                 'cart': self.cart,
                 'categories': categories,
             }
+            return render(request, 'cart.html', context)
         else:
             raise Http404('Сторінки не існує')
 

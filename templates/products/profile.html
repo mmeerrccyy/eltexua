@@ -1,0 +1,34 @@
+{% extends 'products/wrapper.html' %}
+
+{% block content %}
+
+    <h3>Ваші замовлення</h3>
+    {% if not orders.count %}
+        <h3>У вас ще немає замовлень</h3>
+    {% else %}
+        <table class="table">
+            <thead>
+                <th class="col">Номер замовлення</th>
+                <th class="col">Статус</th>
+                <th class="col">Сума</th>
+                <th class="col">Товар</th>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td scope="row">{{ order.id }}</td>
+                        <td scope="row">{{ order.get_status_display }}</td>
+                        <td scope="row">{{ order.cart.final_price }}</td>
+                        <td scope="row">
+                            <ul>
+                                {% for item in order.cart.products.all %}
+                                    <li>{{ item }} x {{ item.qty }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

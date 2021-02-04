@@ -174,14 +174,15 @@ class MakeOrderView(CartMixin, View):
         customer = Customer.objects.get(user=request.user)
         if form.is_valid():
             new_order = form.save(commit=False)
-            new_order.customer = Customer.objects.get(user=request.user)
+            new_order.customer = customer
             new_order.first_name = form.cleaned_data['first_name']
             new_order.last_name = form.cleaned_data['last_name']
             new_order.phone = form.cleaned_data['phone']
             new_order.address = form.cleaned_data['address']
             new_order.buying_type = form.cleaned_data['buying_type']
-            new_order.date = form.cleaned_data['order_date']
+            new_order.order_date = form.cleaned_data['order_date']
             new_order.comment = form.cleaned_data['comment']
+            new_order.save()
             self.cart.in_order = True
             self.cart.save()
             new_order.cart = self.cart
@@ -256,10 +257,27 @@ class RegistrationView(CartMixin, View):
             )
             login(request, user)
             return HttpResponseRedirect('/')
-        categories = Category.objects.all()
+        categories = Category.objects.get_categories_for_left_sidebar()
         context = {
             'form': form,
             'categories': categories,
             'cart': self.cart
         }
         return render(request, 'products/registration.html', context)
+
+
+class ProfileView(CartMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        customer = Customer.objects.get(user=request.user)
+        orders = Order.objects.filter(customer=customer).order_by('-created_at')
+        categories = Category.objects.get_categories_for_left_sidebar()
+        return render(
+            request,
+            'products/profile.html',
+            {
+            'orders': orders,
+            'cart': self.cart,
+            'categories': categories,
+            }
+        )

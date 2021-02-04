@@ -56,7 +56,7 @@ class CartProduct(models.Model):
     final_price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Загальна ціна')
 
     def __str__(self):
-        return "Продукт: {} (для корзини)".format(self.content_object.model)
+        return "{}".format(self.content_object.model)
 
     def save(self, *args, **kwargs):
         self.final_price = self.qty * self.content_object.price
@@ -142,7 +142,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Ціна', null=True)
 
     def __str__(self):
-        return self.model
+        return '{} {}'.format(self.fk_brand,self.model)
 
     def get_model_name(self):
         return self.__class__.__name__.lower()

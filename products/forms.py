@@ -56,17 +56,13 @@ class RegistrationForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput)
     password = forms.CharField(widget=forms.PasswordInput)
     phone = forms.CharField(required=False)
-    address = forms.CharField(required=False)
     email = forms.EmailField(required=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].label = 'Логін'
-        self.fields['first_name'].label = 'Ім\'я'
-        self.fields['last_name'].label = 'Прізвище'
         self.fields['phone'].label = 'Номер телефону'
         self.fields['email'].label = 'Елетронна пошта'
-        self.fields['address'].label = 'Адреса'
         self.fields['password'].label = 'Пароль'
         self.fields['confirm_password'].label = 'Підтвердити пароль'
 
@@ -87,11 +83,8 @@ class RegistrationForm(forms.ModelForm):
         model = User
         fields = [
             'username',
-            'first_name',
-            'last_name',
             'phone',
             'email',
-            'address',
             'password',
             'confirm_password'
         ]

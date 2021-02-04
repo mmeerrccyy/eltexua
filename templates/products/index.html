@@ -6,21 +6,114 @@
 {% block content %}
     <div class="container-fluid">
         <div class="row no-gutters">
-            {% for product in products %}
+        {% if not notebooks.count %}
+            <h3 class="main-caption">Ноутбуки</h3>
+            {% for notebook in notebooks %}
                 <div class="col-sm-auto place">
-                    <a class="absolute-url" href="{{ product.get_absolute_url }}">
+                    <a class="absolute-url" href="{{ notebook.get_absolute_url }}">
                         <div class="blocks">
-                            <img class="img-fluid" src="{{ product.img.url }}" alt="photo-info">
-                            <h3 class="description">{{ product.fk_brand }} {{ product.model }}</h3>
-                            <p class="description">{{ product.price }} грн</p>
+                            <img class="img-fluid" src="{{ notebook.img.url }}" alt="photo-info">
+                            <h3 class="description">{{ notebook.fk_brand }} {{ notebook.model }}</h3>
+                            <p class="description">{{ notebook.price }} грн</p>
                         </div>
                     </a>
                 </div>
             {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row no-gutters">
+        {% if not smartphones.count %}
+            <h3 class="main-caption">Смартфони</h3>
+            {% for smartphone in smartphones %}
+                <div class="col-sm-auto place">
+                    <a class="absolute-url" href="{{ smartphone.get_absolute_url }}">
+                        <div class="blocks">
+                            <img class="img-fluid" src="{{ smartphone.img.url }}" alt="photo-info">
+                            <h3 class="description">{{ smartphone.fk_brand }} {{ smartphone.model }}</h3>
+                            <p class="description">{{ smartphone.price }} грн</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row no-gutters">
+        {% if not tvsets.count %}
+            <h3 class="main-caption">Телевізори</h3>
+            {% for tvset in tvsets %}
+                <div class="col-sm-auto place">
+                    <a class="absolute-url" href="{{ tvset.get_absolute_url }}">
+                        <div class="blocks">
+                            <img class="img-fluid" src="{{ tvset.img.url }}" alt="photo-info">
+                            <h3 class="description">{{ tvset.fk_brand }} {{ tvset.model }}</h3>
+                            <p class="description">{{ tvset.price }} грн</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row no-gutters">
+        {% if not tablets.count %}
+            <h3 class="main-caption">Планшети</h3>
+            {% for tablet in tablets %}
+                <div class="col-sm-auto place">
+                    <a class="absolute-url" href="{{ tablet.get_absolute_url }}">
+                        <div class="blocks">
+                            <img class="img-fluid" src="{{ tablet.img.url }}" alt="photo-info">
+                            <h3 class="description">{{ tablet.fk_brand }} {{ tablet.model }}</h3>
+                            <p class="description">{{ tablet.price }} грн</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row no-gutters">
+        {% if not audios.count %}
+            <h3 class="main-caption">Навушники</h3>
+            {% for audio in audios %}
+                <div class="col-sm-auto place">
+                    <a class="absolute-url" href="{{ audio.get_absolute_url }}">
+                        <div class="blocks">
+                            <img class="img-fluid" src="{{ audio.img.url }}" alt="photo-info">
+                            <h3 class="description">{{ audio.fk_brand }} {{ audio.model }}</h3>
+                            <p class="description">{{ audio.price }} грн</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row no-gutters">
+        {% if not pcs.count %}
+            <h3 class="main-caption">Персональні комп'ютери</h3>
+            {% for pc in pcs %}
+                <div class="col-sm-auto place">
+                    <a class="absolute-url" href="{{ pc.get_absolute_url }}">
+                        <div class="blocks">
+                            <img class="img-fluid" src="{{ pc.img.url }}" alt="photo-info">
+                            <h3 class="description">{{ pc.fk_brand }} {{ pc.model }}</h3>
+                            <p class="description">{{ pc.price }} грн</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
         </div>
     </div>
     <div class="partners">
-    	<div class="container-fluid">
+        <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-sm"><a href="https://www.samsung.com"><img class="partner-logo" src="{% static 'img/Samsung.png' %}" alt="partner-logo"></a></div>
             <div class="col-sm"><a href="https://www.apple.com"><img class="partner-logo" src="{% static 'img/Apple.png' %}" alt="partner-logo"></a></div>
@@ -28,6 +121,6 @@
             <div class="col-sm"><a href="https://www.bosch.com"><img class="partner-logo" src="{% static 'img/bosch.png' %}" alt="partner-logo"></a></div>
             <div class="col-sm"><a href="https://www.philips.ua"><img class="partner-logo" src="{% static 'img/Philips.png' %}" alt="partner-logo"></a></div>
         </div>
-    	</div>
+        </div>
     </div>
 {% endblock %}

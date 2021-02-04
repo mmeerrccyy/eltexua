@@ -139,7 +139,7 @@ class Product(models.Model):
     model = models.CharField(verbose_name="Модель", max_length=250)
     slug = models.SlugField(unique=True, null=True)
     img = models.ImageField(verbose_name="Зображення")
-    description = models.TextField(verbose_name='Опис', blank=True)
+    description = models.TextField(verbose_name='Опис', blank=True, null=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Ціна', null=True)
 
     def __str__(self):

@@ -31,22 +31,17 @@ i {
 }
 
 .nav-menu {
-	color: #fff;
+	color: #88c00f;
 	text-decoration: none;
 	font-size: .9rem;
 	font-weight: 500;
-}
-
-.nav-menu {
 	padding: 10px;
-	border: 2px solid #fff;
-	border-radius: 5px;
+	background-color: #fff;
+	border-radius: 5px 5px 0 0;
 	transition: .2s all linear;
-	position: relative;
 }
 
 .nav-menu:hover {
-	background-color: #fff;
 	color: #88c00f;
 }
 
@@ -260,59 +255,53 @@ input{
 	padding: 20px;
 	color: #fff;
 }
-	.catalog ul {
-  		list-style: none;
-  		margin: 0;
-  		padding: 0;
-	}
-	.catalog a {
-  		display: block;
-  		text-decoration: none;
-	}
-	li {
-  		display: inline-block;
-  		position: relative;
-	}
-	.down {
-  		font-family: 'Exo 2', sans-serif;
-  		height: 70px;
-  		line-height: 70px;
-  		padding: 0 30px;
-  		font-weight: bold;
-  		color: #003559;
-  		text-transform: uppercase;
-  		transition: .4s ease-in-out;
-	}
-	.down:after {
-  		margin-left: 8px;
-  		font-family: FontAwesome;
-	}
-	.submenu {
-  		background: white;
-  		border: 2px solid #003559;
-  		position: absolute;
-  		visibility: hidden;
-  		opacity: 0;
-  		z-index: 5;
-  		width: 150px;
-  		transform: perspective(600px) rotateX(-90deg);
-  		transform-origin: 0% 0%;
-  		transition: .6s ease-in-out;
-	}
-	.catalog:hover .submenu {
-  		visibility: visible;
-  		opacity: 1;
-		transform: perspective(600px) rotateX(0deg);
-	}
-	.submenu li a {
-  		color: #7f7f7f;
-  		font-size: 13px;
-  		line-height: 36px;
-  		padding: 0 25px;
-  		font-family: 'Kurale', serif;
-  		transition: .4s ease-in-out;
-	}
-	.submenu li{
-		border: 1px solid black;
-		width: 100%;
-	}
+
+/*catalog*/
+
+.catalog {
+	width: 253px;
+	margin-left: 20%;
+}
+
+.down {
+  	text-transform: uppercase;
+  	transition: .2s ease-in-out;
+  	position: relative;
+}
+
+.submenu {
+	list-style: none;
+  	margin: 0;
+  	padding: 0;
+	width: 253px;
+  	background: #fff;
+  	position: absolute;
+  	left: 99px;
+  	visibility: hidden;
+  	opacity: 0;
+  	z-index: 5;
+  	box-shadow: 0 10px 17px 2px #ccc;
+  	transition: .1s all linear;
+}
+
+.catalog:hover .submenu {
+  	visibility: visible;
+  	opacity: 1;
+}
+
+.submenu li a {
+	text-decoration: none;
+  	color: #000;
+  	font-size: .7rem;
+  	padding: 15px 30px 15px 30px;
+  	transition: .2s ease-in-out;
+}
+
+.submenu li {
+	width: 100%;
+	padding: 5px;
+}
+
+.submenu li:hover {
+	background-color: #f1f1f1;
+}

@@ -28,10 +28,7 @@ class BaseView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
         categories = Category.objects.get_categories_for_left_sidebar()
-        notebooks = LatestProducts.objects.get_products_for_main_page(
-            'notebook'
-            # 'personalcomputer',
-        )
+        notebooks = LatestProducts.objects.get_products_for_main_page('notebook')
         smartphones = LatestProducts.objects.get_products_for_main_page('smartphone')
         tvsets = LatestProducts.objects.get_products_for_main_page('tvset')
         tablets = LatestProducts.objects.get_products_for_main_page('tablet')

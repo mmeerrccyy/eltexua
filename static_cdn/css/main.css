@@ -276,7 +276,6 @@ input{
 	width: 253px;
   	background: #fff;
   	position: absolute;
-  	left: 99px;
   	visibility: hidden;
   	opacity: 0;
   	z-index: 5;

@@ -275,6 +275,7 @@ input{
   	padding: 0;
 	width: 253px;
   	background: #fff;
+  	border-radius: 0 0 5px 5px;
   	position: absolute;
   	visibility: hidden;
   	opacity: 0;
@@ -303,4 +304,9 @@ input{
 
 .submenu li:hover {
 	background-color: #f1f1f1;
+}
+
+.submenu li:last-child:hover {
+	background-color: #f1f1f1;
+	border-radius: 0 0 5px 5px;
 }

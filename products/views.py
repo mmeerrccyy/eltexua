@@ -1,29 +1,15 @@
-from django.shortcuts import render
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.db import transaction
-from django.views.generic import DetailView, View
 from django.http import HttpResponseRedirect, Http404
-from django.contrib import messages
+from django.shortcuts import render
+from django.views.generic import DetailView, View
 
-from .models import *
-from .mixins import CategoryDetailMixin, CartMixin
 from .forms import OrderForm, LoginForm, RegistrationForm
+from .mixins import CategoryDetailMixin, CartMixin
+from .models import *
 from .utils import recalc_cart
 
-
-# from django.http import HttpResponse
-# from .models import Notebook
-# Create your views here.
-
-# def index(request):
-#     latest_added = Notebook.objects.all()
-#     return render(request, 'products/index.html', {'notebooks': latest_added})
-
-
-# def index(request):
-#
-#     categories = Category.objects.get_categories_for_left_sidebar()
-#     return render(request, 'products/index.html', {'categories': categories})
 class BaseView(CartMixin, View):
 
     def get(self, request, *args, **kwargs):
@@ -299,7 +285,7 @@ class ProfileView(CartMixin, View):
                 'orders': orders,
                 'cart': self.cart,
                 'categories': categories,
-                }
+            }
             return render(request, 'products/profile.html', context)
         else:
             raise Http404('Сторінки не існує')
